@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue' 
-//ref gibt "reaktive strings" zurück, die Vue.JS erkennt und ihren Wert bei Änderung automatisch übernimmt
+//ref macht objekte reaktiv, sprich Vue.JS erkennt Änderungen und übernimmt automatisch deren Werte
 
 const name = ref('This is from the "name" variable')
 const href = ref("www.google.com")
