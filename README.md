@@ -4,3 +4,6 @@
     * you need to be in the directory "/frontend" to run
     * if this is your first time initialising, you will have to execute "npm install" first 
 - npm run format (code formatting with prettier)
+
+## Learning Snippets
+- to use learning snippets you need to copy their contents and paste them into App.vue
