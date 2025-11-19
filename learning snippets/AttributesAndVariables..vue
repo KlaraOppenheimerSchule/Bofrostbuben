@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import {ref} from 'vue' //ref gibt "reaktive strings" zurück, die Vue.JS erkennt und ihren Wert bei Änderung automatisch übernimmt
+import {ref} from 'vue' 
+//ref gibt "reaktive strings" zurück, die Vue.JS erkennt und ihren Wert bei Änderung automatisch übernimmt
 
 const name = ref('This is from the "name" variable')
 const href = ref("www.google.com")
 const disabled = ref(true)
+const count = ref(0)
+
+function increment():void {
+    count.value++
+}
 </script>
 
 <template>
