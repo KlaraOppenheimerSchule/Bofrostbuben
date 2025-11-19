@@ -5,11 +5,7 @@ import {ref} from 'vue'
 const name = ref('This is from the "name" variable')
 const href = ref("www.google.com")
 const disabled = ref(true)
-const count = ref(0)
 
-function increment():void {
-    count.value++
-}
 </script>
 
 <template>
