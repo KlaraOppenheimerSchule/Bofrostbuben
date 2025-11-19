@@ -1,4 +1,6 @@
 # Development guide
 ## NPM commands
 - npm run dev (start vite local server)
+    * you need to be in the directory "/frontend" to run
+    * if this is your first time initialising, you will have to execute "npm install" first 
 - npm run format (code formatting with prettier)
