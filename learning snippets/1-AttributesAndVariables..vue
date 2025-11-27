@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue' 
-//ref macht objekte reaktiv, sprich Vue.JS erkennt Änderungen und übernimmt automatisch deren Werte
+//Was Ref macht wird in 3. tiefer erklärt, kurzgesagt: es macht Werte reaktiv
 
 const name = ref('This is from the "name" variable')
 const href = ref("www.google.com")
@@ -9,7 +9,7 @@ const disabled = ref(true)
 </script>
 
 <template>
-  #Syntax zum Einsetzen einer Variable 
+  #Syntax zum Einsetzen einer Variable (Das nennt sich mustache-syntax(SEHR WICHTIG))
   <p> {{ name }}</p>
   <br></br>
   #Syntax zum Einsetzen von Attributen, die  '{ { } }' syntax, kann nicht für HTML Attribute verwendet werden
