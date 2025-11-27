@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest' // Importing necessary functions from vitest
 
 import { mount } from '@vue/test-utils' // Importing mount function from Vue Test Utils
-import App from '../App.vue' // Importing the App component to be tested
+import App from '../App.vue' // Importing the App component to be tested, replace with the correct path if necessary
 
 
 
