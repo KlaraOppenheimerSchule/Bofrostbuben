@@ -2,7 +2,7 @@
 ## NPM commands
 
 ### Running the application
-if this is your first time initialising, you will have to execute `npm install` first
+if this is your first time initialising, you will have to execute `npm install`(`npm install node`) first
 
 - start vite local server `npm run dev`
     * you need to be in the directory "/frontend" to run

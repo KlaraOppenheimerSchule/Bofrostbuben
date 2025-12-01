@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import GreetingBar from '../src/components/GreetingBar.vue'
+
 async function getFact(): Promise<any> {
   let person: number = Math.floor(Math.random() * 83) + 1
 
@@ -15,6 +17,7 @@ async function getFact(): Promise<any> {
 
 <template>
   <h1>You did it!</h1>
+  <GreetingBar></GreetingBar>
   <button @click="getFact">Generate star wars name</button>
   <p id="fact"></p>
 </template>
