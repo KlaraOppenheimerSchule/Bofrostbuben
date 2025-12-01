@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import BoilerPlate from './components/BoilerPlate.vue'
 </script>
 <template>
   <h1>Hello App!</h1>
@@ -11,6 +11,9 @@
   <main>
     <RouterView />
   </main>
+  <BoilerPlate>
+  </BoilerPlate>
 </template>
+
 
 <style scoped></style>
