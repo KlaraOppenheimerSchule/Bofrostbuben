@@ -4,7 +4,7 @@ import {ref} from 'vue'
 const names = ['Benjamin Nethanyahu', 'Charlie', 'Fortnite', 'SixSeven']
 const UserName = ref(names[Math.floor(Math.random() * names.length)])
 
-function profile() {
+function changeToProfile() {
   console.log("route to profile")
 }
 </script>
@@ -12,7 +12,7 @@ function profile() {
 <template>
 
   <p>
-    <button @click="profile">
+    <button @click="changeToProfile">
       <img src="../../public/assets/placeholderProfile.jpg" alt="Logo" style=""/>
     </button>
     Hallo, {{ UserName }}!
