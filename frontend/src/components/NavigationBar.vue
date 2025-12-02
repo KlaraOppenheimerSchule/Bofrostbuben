@@ -38,21 +38,21 @@ import settingsIcon from '@/../media/settings.svg'
 <style scoped>
 .bottom-nav {
   position: fixed;
-  bottom: 12px;
+  bottom: 0.75rem;          /* 12px */
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px;
+  padding: 0.625rem;        /* 10px */
   display: flex;
   justify-content: center;
-  gap: 12px;
-  border-radius: 40px;
+  gap: 0.75rem;             /* 12px */
+  border-radius: 2.5rem;    /* 40px */
   width: max-content;
 }
 
 /* Buttons */
 .nav-btn {
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;          /* 50px */
+  height: 3.125rem;         /* 50px */
   border-radius: 50%;
   border: none;
   background: rgba(255,255,255,0.1);
@@ -70,8 +70,9 @@ import settingsIcon from '@/../media/settings.svg'
 }
 
 .nav-icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;            /* 24px */
+  height: 1.5rem;           /* 24px */
   filter: brightness(0) invert(1);
 }
+
 </style>
