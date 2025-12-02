@@ -1,31 +1,33 @@
 <template>
   <nav class="bottom-nav">
-    <button
-      v-for="btn in buttons"
-      :key="btn.id"
-      class="nav-btn"
-      @click="handleClick(btn)"
-    >
-      <img :src="btn.icon" class="nav-icon" />
-    </button>
+    <RouterLink to="/" class="nav-btn">
+      <img :src="homeIcon" class="nav-icon" />
+    </RouterLink>
+
+    <RouterLink to="/catalog" class="nav-btn">
+      <img :src="catalogIcon" class="nav-icon" />
+    </RouterLink>
+
+    <RouterLink to="/new-plan" class="nav-btn">
+      <img :src="newPlanIcon" class="nav-icon" />
+    </RouterLink>
+
+    <RouterLink to="/history" class="nav-btn">
+      <img :src="historyIcon" class="nav-icon" />
+    </RouterLink>
+
+    <RouterLink to="/setup" class="nav-btn">
+      <img :src="settingsIcon" class="nav-icon" />
+    </RouterLink>
   </nav>
 </template>
 
 <script setup>
-const props = defineProps({})
-
-const buttons = [
-  { id: 'home', label: 'home', icon: new URL('@/../media/home.svg', import.meta.url).href },
-  { id: 'catalog', label: 'catalog', icon: new URL('@/../media/catalog.svg', import.meta.url).href },
-  { id: 'newPlan', label: 'newPlan', icon: new URL('@/../media/newPlan.svg', import.meta.url).href },
-  { id: 'history', label: 'history', icon: new URL('@/../media/history.svg', import.meta.url).href },
-  { id: 'setup', label: 'setup', icon: new URL('@/../media/settings.svg', import.meta.url).href }
-]
-
-function handleClick(btn) {
-  console.log(btn.label)
-  alert(btn.label)
-}
+import homeIcon from '@/../media/home.svg'
+import catalogIcon from '@/../media/catalog.svg'
+import newPlanIcon from '@/../media/newPlan.svg'
+import historyIcon from '@/../media/history.svg'
+import settingsIcon from '@/../media/settings.svg'
 </script>
 
 <style scoped>
