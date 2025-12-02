@@ -1,5 +1,8 @@
 <template>
-  <nav class="bottom-nav">
+  <nav
+    class="bottom-nav"
+    :style="{ background: store.mainAppColor }"
+  >
     <RouterLink to="/HomeView" class="nav-btn">
       <img :src="homeIcon" class="nav-icon" />
     </RouterLink>
@@ -23,6 +26,8 @@
 </template>
 
 <script setup>
+import { store } from '@/stores/store'
+
 import homeIcon from '@/../media/home.svg'
 import catalogIcon from '@/../media/catalog.svg'
 import newPlanIcon from '@/../media/newPlan.svg'
@@ -37,7 +42,6 @@ import settingsIcon from '@/../media/settings.svg'
   left: 50%;
   transform: translateX(-50%);
   padding: 10px;
-  background: #710002;
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -45,6 +49,7 @@ import settingsIcon from '@/../media/settings.svg'
   width: max-content;
 }
 
+/* Buttons */
 .nav-btn {
   width: 50px;
   height: 50px;

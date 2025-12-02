@@ -12,8 +12,6 @@ import NavigationBar from './components/NavigationBar.vue';
   <main>
     <RouterView />
   </main>
-  <BoilerPlate>
-  </BoilerPlate>
   <NavigationBar>
   </NavigationBar>
 </template>
