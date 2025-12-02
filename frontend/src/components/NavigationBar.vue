@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { store } from '@/stores/store'
+import { store } from '@/stores/color_store'
 
 import homeIcon from '@/../media/home.svg'
 import catalogIcon from '@/../media/catalog.svg'
