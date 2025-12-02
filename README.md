@@ -10,3 +10,13 @@
 
 ## Learning Snippets
 - to use learning snippets you need to copy their contents and paste them into App.vue
+
+## Developing the backend
+- to start devoping the backend you will have to execute the following commands:
+- cd /backend 
+- npm install
+
+## Using Docker 
+- to build images use: "make build-dev" 
+- to run the containers use "make run-dev"
+- to stop the containers use "make stop-dev"
