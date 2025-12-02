@@ -14,7 +14,7 @@ const randomNumber = ref(getRandomInt(100))
 <template>
   <RouterLink to="/history">
     <button>
-      <img src="/assets/icons/dumbbell.svg" alt="Dumbbell" style="width: 25px; height: 25px; vertical-align: middle"/>
+      <img src="/assets/icons/dumbbell.svg" alt="Dumbbell" style="width: 1.5rem; height: 1.5rem; vertical-align: middle"/>
       {{ randomNumber }}
     </button>
   </RouterLink>
