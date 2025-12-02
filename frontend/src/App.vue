@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import BoilerPlate from './components/BoilerPlate.vue'
+import StartWorkoutButton from './components/StartWorkoutButton.vue';
 </script>
+
 <template>
   <h1>Hello App!</h1>
   <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
@@ -13,6 +15,8 @@ import BoilerPlate from './components/BoilerPlate.vue'
   </main>
   <BoilerPlate>
   </BoilerPlate>
+
+  <StartWorkoutButton/>
 </template>
 
 
