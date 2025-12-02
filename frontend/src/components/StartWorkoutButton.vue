@@ -1,18 +1,18 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'StartWorkoutButton',
   setup() {
     const handleClick = () => {
-      alert('Es würde jetzt ein Workout gestartet werden');
-    };
+      alert('Es würde jetzt ein Workout gestartet werden')
+    }
 
     return {
-      handleClick
-    };
-  }
-});
+      handleClick,
+    }
+  },
+})
 </script>
 
 <template>
@@ -46,7 +46,7 @@ export default defineComponent({
 
 /* Play icon */
 .start_workout-btn::before {
-  content: "";
+  content: '';
   display: block;
   width: 0;
   height: 0;

@@ -5,6 +5,5 @@ export const store = reactive({
   increment() {
     this.count++
     console.log('Count incremented to:', this.count)
-  }
+  },
 })
-
