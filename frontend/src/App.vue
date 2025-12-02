@@ -7,6 +7,11 @@ import BoilerPlate from './components/BoilerPlate.vue'
   <nav>
     <RouterLink to="/">Go to Home</RouterLink>
     <RouterLink to="/about">Go to About</RouterLink>
+    <RouterLink to="/createPlan">Go to Create Plan</RouterLink>
+    <RouterLink to="/history">Go to History</RouterLink>
+    <RouterLink to="/settings">Go to Settings</RouterLink>
+    <RouterLink to="/profile">Go to Profile</RouterLink>
+    
   </nav>
   <main>
     <RouterView />
