@@ -10,7 +10,7 @@ const randomNumber = ref(getRandomInt(100))
 
 //the function will navigate to the history later
 function streakTracken(): void {
-  console.log("User would navigate to the history screen")
+  console.log('User would navigate to the history screen')
 }
 </script>
 

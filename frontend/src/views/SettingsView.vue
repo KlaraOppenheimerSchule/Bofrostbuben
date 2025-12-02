@@ -1,1 +1,1 @@
-<template> <h1> hier könnten die einstellungen sein </h1> </template>
+<template><h1>hier könnten die einstellungen sein</h1></template>
