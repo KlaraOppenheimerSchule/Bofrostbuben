@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BoilerPlate from './components/BoilerPlate.vue'
+import NavigationBar from './components/NavigationBar.vue';
 import StartWorkoutButton from './components/StartWorkoutButton.vue';
 import StreakTracker from './components/StreakTracker.vue'
 </script>
@@ -19,12 +20,8 @@ import StreakTracker from './components/StreakTracker.vue'
   <main>
     <RouterView />
   </main>
-  <BoilerPlate>
-  </BoilerPlate>
-
-  <StartWorkoutButton/>
-  <StreakTracker>
-  </StreakTracker>
+  <NavigationBar>
+  </NavigationBar>
 </template>
 
 
