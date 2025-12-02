@@ -54,6 +54,14 @@ function handleClick(btn) {
   align-items: center;
 }
 
+.nav-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.nav-btn:active {
+  background: rgba(255,255,255,0.05);
+}
+
 .nav-icon {
   width: 24px;
   height: 24px;
