@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import BoilerPlate from './components/BoilerPlate.vue'
+import StartWorkoutButton from './components/StartWorkoutButton.vue';
 import StreakTracker from './components/StreakTracker.vue'
 </script>
+
 <template>
   <h1>Hello App!</h1>
   <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
@@ -19,6 +21,8 @@ import StreakTracker from './components/StreakTracker.vue'
   </main>
   <BoilerPlate>
   </BoilerPlate>
+
+  <StartWorkoutButton/>
   <StreakTracker>
   </StreakTracker>
 </template>
