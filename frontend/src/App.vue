@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BoilerPlate from './components/BoilerPlate.vue'
+import StreakTracker from './components/StreakTracker.vue'
 </script>
 <template>
   <h1>Hello App!</h1>
@@ -13,6 +14,8 @@ import BoilerPlate from './components/BoilerPlate.vue'
   </main>
   <BoilerPlate>
   </BoilerPlate>
+  <StreakTracker>
+  </StreakTracker>
 </template>
 
 
