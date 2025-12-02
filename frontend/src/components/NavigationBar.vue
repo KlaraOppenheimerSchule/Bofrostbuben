@@ -1,22 +1,22 @@
 <template>
   <nav class="bottom-nav">
-    <RouterLink to="/" class="nav-btn">
+    <RouterLink to="/HomeView" class="nav-btn">
       <img :src="homeIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/catalog" class="nav-btn">
+    <RouterLink to="/ProfileView" class="nav-btn">
       <img :src="catalogIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/new-plan" class="nav-btn">
+    <RouterLink to="/CreatePlanView" class="nav-btn">
       <img :src="newPlanIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/history" class="nav-btn">
+    <RouterLink to="/HistoryView" class="nav-btn">
       <img :src="historyIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/setup" class="nav-btn">
+    <RouterLink to="/SettingsView" class="nav-btn">
       <img :src="settingsIcon" class="nav-icon" />
     </RouterLink>
   </nav>
