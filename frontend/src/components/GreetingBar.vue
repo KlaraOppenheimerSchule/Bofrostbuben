@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 const names = ['Benjamin Nethanyahu', 'Charlie', 'Fortnite', 'SixSeven']
 const UserName = ref(names[Math.floor(Math.random() * names.length)])
 

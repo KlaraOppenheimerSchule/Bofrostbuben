@@ -1,25 +1,9 @@
 <script setup lang="ts">
-import GreetingBar from '../src/components/GreetingBar.vue'
-
-async function getFact(): Promise<any> {
-  let person: number = Math.floor(Math.random() * 83) + 1
-
-  const data = await fetch('https://swapi.dev/api/people/' + person)
-
-  const fact = await data.json()
-
-  const factElement = document.getElementById('fact')
-  if (factElement) {
-    factElement.innerHTML = fact.name
-  }
-}
+import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
-  <h1>You did it!</h1>
   <GreetingBar></GreetingBar>
-  <button @click="getFact">Generate star wars name</button>
-  <p id="fact"></p>
 </template>
 
 <style scoped></style>
