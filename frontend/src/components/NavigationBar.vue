@@ -22,9 +22,8 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { store } from '@/stores/color_store'
-
 import homeIcon from '@/../media/home.svg'
 import catalogIcon from '@/../media/catalog.svg'
 import newPlanIcon from '@/../media/newPlan.svg'
