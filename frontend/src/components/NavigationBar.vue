@@ -26,11 +26,11 @@
 
 <script setup lang="ts">
 import { store } from '@/stores/color_store'
-import homeIcon from '@/../media/home.svg'
-import catalogIcon from '@/../media/catalog.svg'
-import newPlanIcon from '@/../media/newPlan.svg'
-import historyIcon from '@/../media/history.svg'
-import settingsIcon from '@/../media/settings.svg'
+import homeIcon from '/assets/icons/home.svg'
+import catalogIcon from '/assets/icons/dumbbell.svg'
+import newPlanIcon from '/assets/icons/plus.svg'
+import historyIcon from '/assets/icons/calendar.svg'
+import settingsIcon from '/assets/icons/settings.svg'
 </script>
 
 <style scoped>
