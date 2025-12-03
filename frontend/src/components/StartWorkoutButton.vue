@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Button from './Button.vue'
 
 function handleClick() {
   alert('Es würde jetzt ein Workout gestartet werden')
@@ -6,35 +7,10 @@ function handleClick() {
 </script>
 
 <template>
-  <button class="start_workout-btn" @click="handleClick">
-    <span>Workout</span>
-    <span>starten</span>
-  </button>
+  <Button title1="Workout" title2="starten" @click="handleClick"> </Button>
 </template>
 
 <style scoped>
-.start_workout-btn {
-  border: none;
-  color: white;
-  background: #710002;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  /* Responsive sizing */
-  width: 12rem;
-  height: 12rem;
-  border-radius: 1.2rem;
-  padding: 0;
-  cursor: pointer;
-
-  /* Text */
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-/* Play icon */
 .start_workout-btn::before {
   content: '';
   display: block;
