@@ -12,7 +12,7 @@ const randomNumber = ref(getRandomInt(100))
 </script>
 
 <template>
-  <RouterLink to="/history">
+  <RouterLink to="/HistoryView">
     <button>
       <img src="/assets/icons/dumbbell.svg" alt="Dumbbell" style="width: 1.5rem; height: 1.5rem; vertical-align: middle"/>
       {{ randomNumber }}
