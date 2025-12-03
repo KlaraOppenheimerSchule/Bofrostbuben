@@ -16,3 +16,6 @@ logs-dev:
 # Stop only the dev containers
 stop-dev:
 	docker compose stop frontend-dev backend db
+
+format:
+	cd frontend && npm run format
