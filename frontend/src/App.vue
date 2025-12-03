@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import BoilerPlate from './components/BoilerPlate.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import StartWorkoutButton from './components/StartWorkoutButton.vue'
 import StreakTracker from './components/StreakTracker.vue'
+import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
@@ -15,11 +15,16 @@ import StreakTracker from './components/StreakTracker.vue'
     <RouterLink to="/history">Go to History</RouterLink>
     <RouterLink to="/settings">Go to Settings</RouterLink>
     <RouterLink to="/profile">Go to Profile</RouterLink>
+
   </nav>
   <main>
     <RouterView />
   </main>
+  <StartWorkoutButton />
+  <StreakTracker />
+  <GreetingBar />
   <NavigationBar> </NavigationBar>
 </template>
+
 
 <style scoped></style>
