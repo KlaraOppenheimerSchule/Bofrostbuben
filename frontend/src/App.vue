@@ -19,10 +19,10 @@ import GreetingBar from './components/GreetingBar.vue'
   <main>
     <RouterView />
   </main>
-  <StartWorkoutButton />
-  <StreakTracker />
+  <StreakTracker></StreakTracker>
+  <StartWorkoutButton></StartWorkoutButton>
+  <NavigationBar></NavigationBar>
   <GreetingBar />
-  <NavigationBar> </NavigationBar>
 </template>
 
 <style scoped></style>
