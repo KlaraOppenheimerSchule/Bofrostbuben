@@ -1,18 +1,8 @@
 <script setup lang="ts">
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'StartWorkoutButton',
-  setup() {
-    const handleClick = () => {
-      alert('Es würde jetzt ein Workout gestartet werden')
-    }
-
-    return {
-      handleClick,
-    }
-  },
-})
+function handleClick() {
+  alert('Es würde jetzt ein Workout gestartet werden')
+}
 </script>
 
 <template>
