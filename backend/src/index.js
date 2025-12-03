@@ -18,7 +18,10 @@ async function makeApp() {
   const repo = new InMemoryExerciseRepository();
 
   const service = new ExerciseService(repo);
-  app.use("/exercise", ExerciseController(service));
+  // mount controller at root so we expose:
+  // GET  /exercises
+  // POST /exercise
+  app.use("/", ExerciseController(service));
 
   // root route: return a single (static) exercise object from the service
   app.get("/", async (req, res) => {

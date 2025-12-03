@@ -4,7 +4,8 @@ function ExerciseController(exerciseService) {
   const router = express.Router();
 
   // GET /exercise
-  router.get("/", async (request, response) => {
+  // GET /exercises
+  router.get("/exercises", async (request, response) => {
     try {
       const exerciseList = await exerciseService.getAllExercises();
       response.json(exerciseList);
@@ -14,23 +15,8 @@ function ExerciseController(exerciseService) {
     }
   });
 
-  // GET /exercise/:exerciseId
-  router.get("/:exerciseId", async (request, response) => {
-    try {
-      const exerciseId = request.params.exerciseId;
-      const exercise = await exerciseService.getExerciseById(exerciseId);
-      if (!exercise) {
-        return response.status(404).json({ error: "exercise not found" });
-      }
-      response.json(exercise);
-    } catch (error) {
-      console.error(`Failed to fetch exercise with id ${request.params.exerciseId}:`, error);
-      response.status(error.status || 500).json({ error: error.message || "internal server error" });
-    }
-  });
-
   // POST /exercise
-  router.post("/", async (request, response) => {
+  router.post("/exercise", async (request, response) => {
     try {
       const exerciseData = request.body || {};
       const createdExercise = await exerciseService.createExercise(exerciseData);

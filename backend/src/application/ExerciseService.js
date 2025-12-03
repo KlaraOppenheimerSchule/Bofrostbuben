@@ -24,13 +24,6 @@ class ExerciseService {
   async getAllExercises() {
     return await this.exerciseRepository.findAll();
   }
-
-  /**
-   * Return an Exercise by its ID.
-   */
-  async getExerciseById(exerciseId) {
-    return await this.exerciseRepository.findById(exerciseId);
-  }
 }
 
 module.exports = ExerciseService;

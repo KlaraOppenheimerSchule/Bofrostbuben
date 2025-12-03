@@ -27,11 +27,6 @@ class InMemoryExerciseRepository {
     return this.items.map(i => Object.assign({}, i));
   }
 
-  async findById(id) {
-    const el = this.items.find(e => Number(e.id) === Number(id));
-    return el ? Object.assign({}, el) : null;
-  }
-
   async save({ name, muscleGroup, description }) {
     const obj = {
       id: this.nextId++,
