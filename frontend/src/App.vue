@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import StartWorkoutButton from './components/StartWorkoutButton.vue'
-import BoilerPlate from './components/BoilerPlate.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import StartWorkoutButton from './components/StartWorkoutButton.vue'
 import StreakTracker from './components/StreakTracker.vue'
