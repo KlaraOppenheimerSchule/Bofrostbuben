@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 function handleClick() {
   alert('Es würde jetzt ein Workout gestartet werden')
 }
