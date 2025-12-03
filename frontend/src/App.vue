@@ -15,7 +15,6 @@ import GreetingBar from './components/GreetingBar.vue'
     <RouterLink to="/history">Go to History</RouterLink>
     <RouterLink to="/settings">Go to Settings</RouterLink>
     <RouterLink to="/profile">Go to Profile</RouterLink>
-
   </nav>
   <main>
     <RouterView />
@@ -25,6 +24,5 @@ import GreetingBar from './components/GreetingBar.vue'
   <NavigationBar></NavigationBar>
   <GreetingBar />
 </template>
-
 
 <style scoped></style>

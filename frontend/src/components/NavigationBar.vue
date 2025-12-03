@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
     <RouterLink to="/" class="nav-btn">
