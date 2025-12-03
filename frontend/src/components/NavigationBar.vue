@@ -1,10 +1,10 @@
 <template>
   <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
-    <RouterLink to="/HomeView" class="nav-btn">
+    <RouterLink to="/" class="nav-btn">
       <img :src="homeIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/ProfileView" class="nav-btn">
+    <RouterLink to="/ExcerciseCatalogueView" class="nav-btn">
       <img :src="catalogIcon" class="nav-icon" />
     </RouterLink>
 
