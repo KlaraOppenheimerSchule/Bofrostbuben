@@ -6,46 +6,35 @@ const ExerciseService = require("./application/ExerciseService");
 const ExerciseController = require("./adapters/http/ExerciseController");
 
 const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
-const { Pool } = require("pg");
 
 const PORT = process.env.PORT || 3000;
-const REPO = process.env.EXERCISE_REPO || process.env.USER_REPO || "memory";
-// DB envs (used only if REPO=pg)
-const DB_HOST = process.env.DB_HOST || "db";
-const DB_USER = process.env.DB_USER || "postgres";
-const DB_PASSWORD = process.env.DB_PASSWORD || "postgres";
-const DB_NAME = process.env.DB_NAME || "appdb";
 
 async function makeApp() {
   const app = express();
   app.use(cors());
   app.use(bodyParser.json());
 
-  let repo;
-  if (REPO === "pg") {
-    // create a pg pool
-    const pool = new Pool({
-      host: DB_HOST,
-      user: DB_USER,
-      password: DB_PASSWORD,
-      database: DB_NAME,
-      port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432,
-    });
-
- 
-  repo = new InMemoryExerciseRepository();
-  
+  // Always use the in-memory repository for now (no DB usage)
+  const repo = new InMemoryExerciseRepository();
 
   const service = new ExerciseService(repo);
   app.use("/exercise", ExerciseController(service));
 
-  app.get("/healthz", (req, res) => res.json({ status: "ok" }));
+  // root route: return a single (static) exercise object from the service
+  app.get("/", async (req, res) => {
+    try {
+      const exercises = await service.getAllExercises();
+      if (!exercises || exercises.length === 0) {
+        return res.status(404).json({ error: "no exercises available" });
+      }
+      return res.json(exercises[0]);
+    } catch (err) {
+      console.error("Failed to fetch root exercise:", err);
+      return res.status(err.status || 500).json({ error: err.message || "internal server error" });
+    }
+  });
 
-  // attach a graceful shutdown handler if using Postgres pool
-  if (REPO === "pg") {
-    const pool = repo.pool || (repo._pool); // not used here, just note
-    // No further special handling in this simple example
-  }
+  app.get("/healthz", (req, res) => res.json({ status: "ok" }));
 
   return app;
 }
@@ -54,9 +43,18 @@ if (require.main === module) {
   // run as a script
   makeApp()
     .then(app => {
-      app.listen(PORT, "0.0.0.0", () => {
-        console.log(`Backend listening on http://0.0.0.0:${PORT} (REPO=${REPO})`);
+      const server = app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Backend listening on http://0.0.0.0:${PORT}`);
+        console.log(`Container exposed port: ${PORT}`);
       });
+
+      // handle graceful shutdown
+      const shutdown = () => {
+        console.log("Shutting down server...");
+        server.close(() => process.exit(0));
+      };
+      process.on("SIGINT", shutdown);
+      process.on("SIGTERM", shutdown);
     })
     .catch(err => {
       console.error("Failed to start app:", err);
@@ -65,4 +63,3 @@ if (require.main === module) {
 }
 
 module.exports = { makeApp };
-}
