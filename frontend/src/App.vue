@@ -2,6 +2,7 @@
 import NavigationBar from './components/NavigationBar.vue'
 import StartWorkoutButton from './components/StartWorkoutButton.vue'
 import StreakTracker from './components/StreakTracker.vue'
+import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import StreakTracker from './components/StreakTracker.vue'
     <RouterLink to="/history">Go to History</RouterLink>
     <RouterLink to="/settings">Go to Settings</RouterLink>
     <RouterLink to="/profile">Go to Profile</RouterLink>
+
   </nav>
   <main>
     <RouterView />
@@ -21,6 +23,8 @@ import StreakTracker from './components/StreakTracker.vue'
   <StreakTracker></StreakTracker>
   <StartWorkoutButton></StartWorkoutButton>
   <NavigationBar></NavigationBar>
+  <GreetingBar />
 </template>
+
 
 <style scoped></style>
