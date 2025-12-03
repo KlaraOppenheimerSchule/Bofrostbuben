@@ -10,25 +10,32 @@ function changeToProfile() {
 </script>
 
 <template>
-  <p style="display: flex; align-items: center; gap: 0, 5rem; margin: 0">
-    <button
-      @click="changeToProfile"
-      style="all: unset; cursor: pointer; display: flex; align-items: center"
-    >
-      <img
-        src="/assets/icons/muskelkater.svg"
-        alt="Logo"
-        style="display: block; width: 5rem; height: 5rem"
-      />
+  <p class="greeting-container">
+    <button class="icon-button" @click="changeToProfile">
+      <img src="/assets/icons/muskelkater.svg" alt="Logo" class="icon-img" />
     </button>
-
     Hallo, {{ UserName }}!
   </p>
 </template>
 
 <style scoped>
-button img {
-  width: 20px;
-  height: 20px;
+.greeting-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.icon-button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon-img {
+  display: block;
+  width: 5rem;
+  height: 5rem;
 }
 </style>
