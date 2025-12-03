@@ -1,10 +1,10 @@
 <template>
   <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
-    <RouterLink to="/HomeView" class="nav-btn">
+    <RouterLink to="/" class="nav-btn">
       <img :src="homeIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/ProfileView" class="nav-btn">
+    <RouterLink to="/ExcerciseCatalogueView" class="nav-btn">
       <img :src="catalogIcon" class="nav-icon" />
     </RouterLink>
 
@@ -22,9 +22,8 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { store } from '@/stores/color_store'
-
 import homeIcon from '@/../media/home.svg'
 import catalogIcon from '@/../media/catalog.svg'
 import newPlanIcon from '@/../media/newPlan.svg'
