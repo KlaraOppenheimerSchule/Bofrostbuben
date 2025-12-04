@@ -1,11 +1,22 @@
 # Development guide
-## NPM commands
 
-### Running the application
-if this is your first time initialising, you will have to execute `npm install`(`npm install node`) first
+## Installing and Running the Application
+if this is your first time initialising, you will have to execute 'make startup-dev'
+- this builds the required docker containers
+- installs required npm dependencies locally
+- runs all containers 
 
-- start vite local server `npm run dev`
-    * you need to be in the directory "/frontend" to run
+if you need to build the containers again use:
+- make build-dev
+
+to simply run or stop all containers use:
+- make run-dev
+- make stop-dev
+
+to restart the containers in one command:
+- make restart-dev
+
+
 
 ### Code Formating
 - code formatting with prettier `npm run format`
@@ -17,13 +28,3 @@ if this is your first time initialising, you will have to execute `npm install`(
 
 ## Learning Snippets
 - to use learning snippets you need to copy their contents and paste them into App.vue
-
-## Developing the backend
-- to start devoping the backend you will have to execute the following commands:
-- cd /backend 
-- npm install
-
-## Using Docker 
-- to build images use: "make build-dev" 
-- to run the containers use "make run-dev"
-- to stop the containers use "make stop-dev"
