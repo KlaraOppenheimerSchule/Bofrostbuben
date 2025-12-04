@@ -9,14 +9,13 @@ import settingsIcon from '/assets/icons/settings.svg'
 
 <template>
   <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
-    
     <RouterLink to="/" v-slot="{ isActive }">
       <button class="nav-btn" :class="{ active: isActive }">
         <img :src="homeIcon" class="nav-icon" />
       </button>
     </RouterLink>
 
-    <RouterLink to="/ExcerciseCatalogueView" v-slot="{ isActive }">
+    <RouterLink to="/ExerciseCatalogueView" v-slot="{ isActive }">
       <button class="nav-btn" :class="{ active: isActive }">
         <img :src="catalogIcon" class="nav-icon" />
       </button>
@@ -39,7 +38,6 @@ import settingsIcon from '/assets/icons/settings.svg'
         <img :src="settingsIcon" class="nav-icon" />
       </button>
     </RouterLink>
-
   </nav>
 </template>
 
@@ -79,17 +77,15 @@ import settingsIcon from '/assets/icons/settings.svg'
   filter: brightness(0) invert(1);
 }
 
- .nav-btn:hover {
-    background-color: RGBA(255, 255, 255, 0.2);
-  }
+.nav-btn:hover {
+  background-color: RGBA(255, 255, 255, 0.2);
+}
 
 .nav-btn.active .nav-icon {
   filter: v-bind('store.svgMainAppColorFilter');
 }
 
- .nav-btn.active:hover {
-    background-color: white;
-  }
-
-
+.nav-btn.active:hover {
+  background-color: white;
+}
 </style>
