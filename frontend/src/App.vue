@@ -6,7 +6,8 @@ import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
-  <h1>Hello App!</h1>
+  <GreetingBar />
+  <StreakTracker></StreakTracker>
   <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
   <nav>
     <RouterLink to="/">Go to Home</RouterLink>
@@ -19,10 +20,8 @@ import GreetingBar from './components/GreetingBar.vue'
   <main>
     <RouterView />
   </main>
-  <StreakTracker></StreakTracker>
   <StartWorkoutButton></StartWorkoutButton>
   <NavigationBar></NavigationBar>
-  <GreetingBar />
 </template>
 
 <style scoped></style>
