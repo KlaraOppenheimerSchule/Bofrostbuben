@@ -9,7 +9,7 @@ import settingsIcon from '/assets/icons/settings.svg'
 
 <template>
   <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
-    <RouterLink to="/" v-slot="{ isActive }">
+    <RouterLink to="/HomeView" v-slot="{ isActive }">
       <button class="nav-btn" :class="{ active: isActive }">
         <img :src="homeIcon" class="nav-icon" />
       </button>
