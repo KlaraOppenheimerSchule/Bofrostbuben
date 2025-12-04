@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import BoilerPlate from './components/BoilerPlate.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import StartWorkoutButton from './components/StartWorkoutButton.vue'
 import StreakTracker from './components/StreakTracker.vue'
+import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
-  <h1>Hello App!</h1>
+  <GreetingBar />
   <StreakTracker></StreakTracker>
   <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
   <nav>
@@ -20,7 +20,8 @@ import StreakTracker from './components/StreakTracker.vue'
   <main>
     <RouterView />
   </main>
-  <NavigationBar> </NavigationBar>
+  <StartWorkoutButton></StartWorkoutButton>
+  <NavigationBar></NavigationBar>
 </template>
 
 <style scoped></style>
