@@ -8,10 +8,8 @@ const router = createRouter({
     { path: '/HistoryView', component: () => import('../views/HistoryView.vue') },
     { path: '/SettingsView', component: () => import('../views/SettingsView.vue') },
     { path: '/ProfileView', component: () => import('../views/ProfileView.vue') },
-    {
-      path: '/ExerciseCatalogueView',
-      component: () => import('../views/ExerciseCatalogueView.vue'),
-    },
+    { path: '/StartWorkoutView', component: () => import('../views/StartWorkoutView.vue') },
+    { path: '/ExerciseCatalogueView', component: () => import('../views/ExerciseCatalogueView.vue'), },
   ],
 })
 
