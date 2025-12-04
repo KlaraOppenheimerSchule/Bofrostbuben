@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { store } from '@/stores/color_store'
+import homeIcon from '/assets/icons/home.svg'
+import catalogIcon from '/assets/icons/dumbbell.svg'
+import newPlanIcon from '/assets/icons/plus.svg'
+import historyIcon from '/assets/icons/calendar.svg'
+import settingsIcon from '/assets/icons/settings.svg'
+</script>
 
 <template>
   <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
@@ -6,7 +13,7 @@
       <img :src="homeIcon" class="nav-icon" />
     </RouterLink>
 
-    <RouterLink to="/ExcerciseCatalogueView" class="nav-btn">
+    <RouterLink to="/ExerciseCatalogueView" class="nav-btn">
       <img :src="catalogIcon" class="nav-icon" />
     </RouterLink>
 
@@ -23,15 +30,6 @@
     </RouterLink>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { store } from '@/stores/color_store'
-import homeIcon from '/assets/icons/home.svg'
-import catalogIcon from '/assets/icons/dumbbell.svg'
-import newPlanIcon from '/assets/icons/plus.svg'
-import historyIcon from '/assets/icons/calendar.svg'
-import settingsIcon from '/assets/icons/settings.svg'
-</script>
 
 <style scoped>
 .bottom-nav {
