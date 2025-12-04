@@ -13,6 +13,9 @@ to simply run or stop all containers use:
 - make run-dev
 - make stop-dev
 
+to restart the containers in one command:
+- make restart-dev
+
 
 
 ### Code Formating
