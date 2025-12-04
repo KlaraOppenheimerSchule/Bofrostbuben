@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { store } from '@/stores/color_store'
+
 defineProps<{
   title1: string
   title2: string
@@ -18,7 +20,7 @@ const emit = defineEmits(['click'])
 .btn-template {
   border: none;
   color: white;
-  background: #710002;
+  background: v-bind('store.mainAppColor');
   display: flex;
   flex-direction: column;
   justify-content: center;
