@@ -4,6 +4,7 @@
 
 # Unified startup command so you have to type it only once
 startup-dev:
+	cd frontend && npm install && cd ..
 	@make build-dev
 	@make run-dev
 
