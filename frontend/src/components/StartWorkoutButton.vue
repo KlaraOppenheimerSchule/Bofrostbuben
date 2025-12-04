@@ -11,7 +11,6 @@ function handleClick() {
 </template>
 
 <style scoped>
-// unused css; would be play icon
 .start_workout-btn::before {
   content: '';
   display: block;
