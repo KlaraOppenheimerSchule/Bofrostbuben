@@ -1,7 +1,20 @@
-.PHONY: run-dev logs-dev stop-dev build-dev
+.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev
+
+### shortcuts/aliases
+
+# Unified startup command so you have to type it only once
+startup-dev:
+	@make build-dev
+	@make run-dev
+
+restart-dev:
+	@make stop-dev
+	@make startup-dev
+
+###
 
 # TODO "build-dev" currently does not build the frontend container properly
-# only the dev container works.  
+# only the dev container works.
 build-dev:
 	docker compose build backend db
 
