@@ -15,7 +15,9 @@ services:
 
   ### --- Frontend Dev (Vite hot reload) ---
   frontend-dev:
-    image: node:20.19.0-alpine
+    build:
+      context: .
+      dockerfile: docker/frontend-dev/Dockerfile
     working_dir: /app
     volumes:
       - ./frontend:/app
