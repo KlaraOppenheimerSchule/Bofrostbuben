@@ -12,20 +12,20 @@ const randomNumber = ref(getRandomInt(100))
 </script>
 
 <template>
-  <RouterLink to="/historyView" class="linkNoDecoration">
-    <button class="dumbbellButton">
+  <RouterLink to="/historyView" class="link-no-decoration">
+    <button class="dumbbell-button">
       {{ randomNumber }}
-      <img src="/assets/icons/dumbbell.svg" alt="Dumbbell" class="dumbbellIcon" />
+      <img src="/assets/icons/dumbbell.svg" alt="Dumbbell" class="dumbbell-icon" />
     </button>
   </RouterLink>
 </template>
 
 <style scoped>
-.linkNoDecoration {
+.link-no-decoration {
   text-decoration: none;
 }
 
-.dumbbellButton {
+.dumbbell-button {
   all: unset;
   cursor: pointer;
   display: flex;
@@ -33,7 +33,7 @@ const randomNumber = ref(getRandomInt(100))
   gap: 0.5rem;
 }
 
-.dumbbellIcon {
+.dumbbell-icon {
   display: block;
   width: 2rem;
   height: 2rem;
