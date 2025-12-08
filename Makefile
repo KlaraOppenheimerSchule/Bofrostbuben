@@ -17,7 +17,7 @@ restart-dev:
 # TODO "build-dev" currently does not build the frontend container properly
 # only the dev container works.
 build-dev:
-	docker compose build backend db
+	docker compose build frontend-dev backend db
 
 # Run dev containers (hot reload + backend + db)
 run-dev:
