@@ -5,8 +5,6 @@ import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
-  <GreetingBar />
-  <StreakTracker></StreakTracker>
   <main>
     <RouterView />
   </main>
