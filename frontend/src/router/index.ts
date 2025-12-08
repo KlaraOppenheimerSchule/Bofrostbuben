@@ -10,6 +10,7 @@ const router = createRouter({
     { path: '/ProfileView', component: () => import('../views/ProfileView.vue') },
     {
       path: '/ExerciseCatalogueView',
+      name: 'ExerciseCatalogue',
       component: () => import('../views/ExerciseCatalogueView.vue'),
     },
   ],
