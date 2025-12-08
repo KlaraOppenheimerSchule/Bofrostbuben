@@ -4,10 +4,7 @@ import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
 
 const route = useRoute()
-
 const tab = ref('Details')
-
-const items = ['Details', 'Daten']
 
 if (route.query.tab === 'Daten') {
   tab.value = 'Daten'
@@ -22,9 +19,12 @@ watch(
   },
 )
 
-const text = 'Lorem ipsum dolor sit amet...'
 </script>
 
 <template>
   <Tab v-model="tab" />
 </template>
+
+<style scoped>
+
+</style>
