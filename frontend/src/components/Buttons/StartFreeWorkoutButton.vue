@@ -4,7 +4,9 @@ import Button from '../Buttons/Button.vue'
 </script>
 
 <template>
-  <Button title1="Free" title2="Workout"></Button>
+  <RouterLink to="/StartFreeWorkoutView">
+    <Button title1="Free" title2="Workout"></Button>
+  </RouterLink>
 </template>
 
 <style scoped>

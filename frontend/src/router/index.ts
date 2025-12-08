@@ -10,6 +10,7 @@ const router = createRouter({
     { path: '/ProfileView', component: () => import('../views/ProfileView.vue') },
     { path: '/StartWorkoutView', component: () => import('../views/StartWorkoutView.vue') },
     { path: '/ExerciseCatalogueView', component: () => import('../views/ExerciseCatalogueView.vue'), },
+    { path: '/StartFreeWorkoutView', component: () => import('../views/StartFreeWorkoutView.vue'), },
   ],
 })
 
