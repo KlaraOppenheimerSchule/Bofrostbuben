@@ -1,0 +1,22 @@
+<script setup lang="ts">
+  import Button from '../buttons/Button.vue'
+  </script>
+
+  <template>
+    <RouterLink to="/StartFreeWorkoutView">
+      <Button title1="Free" title2="Workout"></Button>
+    </RouterLink>
+  </template>
+
+  <style scoped>
+  .start_workout-btn::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 2rem solid transparent;
+    border-bottom: 2rem solid transparent;
+    border-left: 3rem solid white;
+    margin-bottom: 0.8rem;
+  }
+  </style>
