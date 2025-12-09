@@ -1,2 +1,33 @@
-<script setup lang="ts"></script>
-<template><h1>hier könnte man historische daten sehen</h1></template>
+<script setup lang="ts">
+import Calender from '../components/Calender.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function goToHistoryTab() {
+  router.push({
+    name: 'ExerciseCatalogue',
+    query: { tab: 'Übungshistorie' },
+  })
+}
+</script>
+
+<template>
+  <Calender />
+  <v-divider />
+  <button @click="goToHistoryTab" class="align-center">Show Historical Data</button>
+  <img
+    class="align-center"
+    src="../../public/assets/icons/NAKTERMANN.jpg"
+    height="653"
+    width="736"
+  />
+</template>
+
+<style>
+.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
