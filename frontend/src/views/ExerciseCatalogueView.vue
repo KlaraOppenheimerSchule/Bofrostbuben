@@ -3,7 +3,6 @@ import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
 import StreakTracker from "@/components/StreakTracker.vue";
-import GreetingBar from "@/components/GreetingBar.vue";
 import ExerciseCatalogueList from '@/components/ExerciseCatalogueList.vue';
 
 const route = useRoute()
@@ -35,11 +34,8 @@ const activeComponent = computed(() => {
 </script>
 
 <template>
-  <GreetingBar/>
   <Tab v-model="tab" />
   <component :is="activeComponent" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
