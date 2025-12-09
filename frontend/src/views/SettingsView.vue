@@ -1,3 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Options from "@/components/Options.vue";
+</script>
 
-<template><h1>hier könnten die einstellungen sein</h1></template>
+<template>
+  <Options/>
+</template>
