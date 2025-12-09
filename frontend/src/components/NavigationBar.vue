@@ -4,7 +4,7 @@ import { store } from '@/stores/color_store'
 
 <template>
   <v-bottom-navigation :elevation="6"grow>
-  <v-btn 
+  <v-btn rounded="xl"
   value="HomeView"
   :to="'/HomeView'"
   >
