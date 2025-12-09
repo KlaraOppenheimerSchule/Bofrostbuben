@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-function goToDatenTab() {
+function goToHistoryTab() {
   router.push({
     name: 'ExerciseCatalogue',
-    query: { tab: 'Daten' },
+    query: { tab: 'Übungshistorie' },
   })
 }
 </script>
@@ -15,7 +15,7 @@ function goToDatenTab() {
 <template>
   <Calender />
   <v-divider />
-  <button @click="goToDatenTab" class="align-center">Show Historical Data</button>
+  <button @click="goToHistoryTab" class="align-center">Show Historical Data</button>
   <img
     class="align-center"
     src="../../public/assets/icons/NAKTERMANN.jpg"

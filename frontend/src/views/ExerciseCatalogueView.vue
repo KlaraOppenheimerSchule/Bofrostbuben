@@ -4,17 +4,17 @@ import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
 
 const route = useRoute()
-const tab = ref('Details')
+const tab = ref('Übungsübersicht')
 
-if (route.query.tab === 'Daten') {
-  tab.value = 'Daten'
+if (route.query.tab === 'Übungshistorie') {
+  tab.value = 'Übungshistorie'
 }
 
 watch(
   () => route.query.tab,
   (newTab) => {
-    if (newTab === 'Daten') {
-      tab.value = 'Daten'
+    if (newTab === 'Übungshistorie') {
+      tab.value = 'Übungshistorie'
     }
   },
 )
