@@ -3,12 +3,6 @@ import { store } from '@/stores/color_store'
 </script>
 
 <template>
-  <v-container>
-    <v-icon
-      color="green-darken-2"
-      icon="mdi-dumbbell"
-      size="large"
-    ></v-icon>
   <v-bottom-navigation :elevation="6"grow>
   <v-btn 
   value="HomeView"
@@ -16,7 +10,7 @@ import { store } from '@/stores/color_store'
   >
     <v-icon
       color="green-darken-2"
-      icon="mdi-domain"
+      icon="mdi-home"
       size="large"
     ></v-icon>
 
@@ -26,7 +20,11 @@ import { store } from '@/stores/color_store'
   <v-btn 
   value="ExerciseCatalogView"
   :to="'/ExerciseCatalogueView'">
-    <v-icon>dumbbell</v-icon>
+    <v-icon
+      color="green-darken-2"
+      icon="mdi-dumbbell"
+      size="large"
+    ></v-icon>
 
     <span>Catalog</span>
   </v-btn>
@@ -34,26 +32,37 @@ import { store } from '@/stores/color_store'
   <v-btn 
   value="CreatePlanView"
   :to="'/CreatePlanView'">
-    <v-icon>mdi-map-marker</v-icon>
+    <v-icon
+      color="green-darken-2"
+      icon="mdi-plus"
+      size="large"
+    ></v-icon>
 
     <span>New Plan</span>
   </v-btn>
 
   <v-btn value="HistoryView"
   :to="'/HistoryView'">
-    <v-icon>mdi-history</v-icon>
+    <v-icon
+      color="green-darken-2"
+      icon="mdi-calendar"
+      size="large"
+    ></v-icon>
 
     <span>History</span>
   </v-btn>
 
   <v-btn value="SettingsView"
   :to="'/SettingsView'">
-    <v-icon>mdi-history</v-icon>
+    <v-icon
+      color="green-darken-2"
+      icon="mdi-cog"
+      size="large"
+    ></v-icon>
 
     <span>Settings</span>
   </v-btn>
 </v-bottom-navigation>
-  </v-container>
 </template>
 
 <style scoped>
