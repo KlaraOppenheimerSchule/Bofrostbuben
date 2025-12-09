@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import NavigationBar from './components/NavigationBar.vue'
-import StreakTracker from './components/StreakTracker.vue'
-import GreetingBar from './components/GreetingBar.vue'
 </script>
 
 <template>
-  <main>
-    <RouterView />
-  </main>
-  <NavigationBar></NavigationBar>
+
+<v-app>
+  <RouterView />
+  <NavigationBar/>
+</v-app>
+
 </template>
 
 <style scoped></style>

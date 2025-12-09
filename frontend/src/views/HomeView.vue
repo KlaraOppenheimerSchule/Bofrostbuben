@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import StartWorkoutButton from '../components/Buttons/StartWorkoutButton.vue'
-import GreetingBar from "@/components/GreetingBar.vue";
-import StreakTracker from "@/components/StreakTracker.vue";
+import StartWorkoutButton from '../components/buttons/StartWorkoutButton.vue'
+import GreetingBar from '../components/GreetingBar.vue'
 </script>
 
 <template>
-  <greeting-bar/>
-
+  <GreetingBar/>
   <StartWorkoutButton/>
 </template>
