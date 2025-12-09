@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Button from '../Buttons/Button.vue'
-
 </script>
 
 <template>
@@ -21,5 +20,3 @@ import Button from '../Buttons/Button.vue'
   margin-bottom: 0.8rem;
 }
 </style>
-
-
