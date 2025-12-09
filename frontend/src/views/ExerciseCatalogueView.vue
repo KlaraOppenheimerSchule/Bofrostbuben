@@ -18,13 +18,10 @@ watch(
     }
   },
 )
-
 </script>
 
 <template>
   <Tab v-model="tab" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
