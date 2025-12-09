@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import StreakTracker from './StreakTracker.vue'
 
-const names = ['Benjamin Nethanyahu', 'Charlie', 'Fortnite', 'SixSeven']
+const names = ['Benjamin Nethanyahu', 'Charlie', 'Fortnite', 'SixSeven', 'Biden']
 const UserName = ref(names[Math.floor(Math.random() * names.length)])
 
 </script>
