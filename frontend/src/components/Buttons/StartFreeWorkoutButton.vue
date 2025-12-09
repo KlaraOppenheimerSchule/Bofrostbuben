@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import Button from './Button.vue'
+import Button from '../Buttons/Button.vue'
 
-function handleClick() {
-  alert('Es würde jetzt ein Workout gestartet werden')
-}
 </script>
 
 <template>
-  <Button title1="Workout" title2="starten" @click="handleClick"> </Button>
+  <RouterLink to="/StartFreeWorkoutView">
+    <Button title1="Free" title2="Workout"></Button>
+  </RouterLink>
 </template>
 
 <style scoped>
@@ -22,3 +21,5 @@ function handleClick() {
   margin-bottom: 0.8rem;
 }
 </style>
+
+

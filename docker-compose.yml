@@ -15,10 +15,13 @@ services:
 
   ### --- Frontend Dev (Vite hot reload) ---
   frontend-dev:
-    image: node:20.19.0-alpine
+    build:
+      context: .
+      dockerfile: docker/frontend-dev/Dockerfile
     working_dir: /app
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     command: sh -c "npm run dev -- --host 0.0.0.0"
     ports:
       - "5173:5173"
