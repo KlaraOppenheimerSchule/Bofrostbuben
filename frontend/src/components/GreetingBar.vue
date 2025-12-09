@@ -8,15 +8,14 @@ const UserName = ref(names[Math.floor(Math.random() * names.length)])
 </script>
 
 <template>
-      <v-card
-        density="compact"
-        prepend-avatar="/assets/icons/muskelkater.svg"
-        :title="`Hallo, ${UserName}!`"
-        variant="text"
-        border
-      >
-      <StreakTracker/>
-      </v-card>
+  <div class="greeting-container">
+    <RouterLink to="/ProfileView" class="link-no-decoration">
+      <button class="icon-button">
+        <img src="/assets/icons/muskelkater.svg" alt="Logo" class="icon-img" />
+      </button>
+    </RouterLink>
+    Hallo, {{ UserName }}!
+  </div>
 </template>
 
 <style scoped>
