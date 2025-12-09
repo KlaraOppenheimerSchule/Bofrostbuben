@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
 import StreakTracker from "@/components/StreakTracker.vue";
 import GreetingBar from "@/components/GreetingBar.vue";
+import ExerciseCatalogueList from '@/components/ExerciseCatalogueList.vue';
 
 const route = useRoute()
 const tab = ref('Übungsübersicht')
@@ -23,15 +24,18 @@ watch(
   }
 )
 
+// Chooses which component to display under which tab
 const activeComponent = computed(() => {
   return tab.value === 'Übungshistorie'
-    ? StreakTracker
-    : GreetingBar
+    // which component to show in 'Übungshistorie'
+    ? StreakTracker // just a placeholder, TODO: replace with ExerciseData component (!)
+    // which component to show in 'Übungsübersicht'
+    : ExerciseCatalogueList
 })
 </script>
 
-
 <template>
+  <GreetingBar/>
   <Tab v-model="tab" />
   <component :is="activeComponent" />
 </template>

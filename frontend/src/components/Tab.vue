@@ -14,8 +14,6 @@ const tab = computed({
   set: (val) => emit('update:modelValue', val),
 })
 
-const text =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 </script>
 
 <template>
@@ -27,7 +25,7 @@ const text =
     <v-tabs-window v-model="tab">
       <v-tabs-window-item v-for="item in items" :key="item" :value="item">
         <v-card color="basil" flat>
-          <v-card-text>{{ text }}</v-card-text>
+
         </v-card>
       </v-tabs-window-item>
     </v-tabs-window>
