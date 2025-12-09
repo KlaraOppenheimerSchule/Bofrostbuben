@@ -3,7 +3,6 @@ import NavigationBar from './components/NavigationBar.vue'
 </script>
 
 <template>
-
 <v-app>
   <v-container class="align-center justify-center">
   <RouterView />
