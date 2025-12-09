@@ -10,21 +10,11 @@ const randomNumber = ref(getRandomInt(100))
 
 <template>
   <v-col cols="auto">
-        <v-btn 
-        size="large" 
-        rounded="xl"
-        :to="'/historyView'">
-        {{ randomNumber }}
-        <v-icon
-          color="green-darken-2"
-          icon="mdi-dumbbell"
-          size="large"
-        >
-        </v-icon>
-  </v-btn>
-
-</v-col>
+    <v-btn size="large" rounded="xl" :to="'/historyView'">
+      {{ randomNumber }}
+      <v-icon color="green-darken-2" icon="mdi-dumbbell" size="large"> </v-icon>
+    </v-btn>
+  </v-col>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

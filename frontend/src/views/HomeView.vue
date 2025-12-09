@@ -4,6 +4,6 @@ import GreetingBar from '../components/GreetingBar.vue'
 </script>
 
 <template>
-  <GreetingBar/>
-  <StartWorkoutButton/>
+  <GreetingBar />
+  <StartWorkoutButton />
 </template>
