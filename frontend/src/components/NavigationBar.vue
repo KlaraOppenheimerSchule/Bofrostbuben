@@ -1,44 +1,59 @@
 <script setup lang="ts">
 import { store } from '@/stores/color_store'
-import homeIcon from '/assets/icons/home.svg'
-import catalogIcon from '/assets/icons/dumbbell.svg'
-import newPlanIcon from '/assets/icons/plus.svg'
-import historyIcon from '/assets/icons/calendar.svg'
-import settingsIcon from '/assets/icons/settings.svg'
 </script>
 
 <template>
-  <nav class="bottom-nav" :style="{ background: store.mainAppColor }">
-    <RouterLink to="/HomeView" v-slot="{ isActive }">
-      <button class="nav-btn" :class="{ active: isActive }">
-        <img :src="homeIcon" class="nav-icon" />
-      </button>
-    </RouterLink>
+  <v-container>
+    <v-icon
+      color="green-darken-2"
+      icon="mdi-dumbbell"
+      size="large"
+    ></v-icon>
+  <v-bottom-navigation :elevation="6"grow>
+  <v-btn 
+  value="HomeView"
+  :to="'/HomeView'"
+  >
+    <v-icon
+      color="green-darken-2"
+      icon="mdi-domain"
+      size="large"
+    ></v-icon>
 
-    <RouterLink to="/ExerciseCatalogueView" v-slot="{ isActive }">
-      <button class="nav-btn" :class="{ active: isActive }">
-        <img :src="catalogIcon" class="nav-icon" />
-      </button>
-    </RouterLink>
+    <span>Home</span>
+  </v-btn>
 
-    <RouterLink to="/CreatePlanView" v-slot="{ isActive }">
-      <button class="nav-btn" :class="{ active: isActive }">
-        <img :src="newPlanIcon" class="nav-icon" />
-      </button>
-    </RouterLink>
+  <v-btn 
+  value="ExerciseCatalogView"
+  :to="'/ExerciseCatalogueView'">
+    <v-icon>dumbbell</v-icon>
 
-    <RouterLink to="/HistoryView" v-slot="{ isActive }">
-      <button class="nav-btn" :class="{ active: isActive }">
-        <img :src="historyIcon" class="nav-icon" />
-      </button>
-    </RouterLink>
+    <span>Catalog</span>
+  </v-btn>
 
-    <RouterLink to="/SettingsView" v-slot="{ isActive }">
-      <button class="nav-btn" :class="{ active: isActive }">
-        <img :src="settingsIcon" class="nav-icon" />
-      </button>
-    </RouterLink>
-  </nav>
+  <v-btn 
+  value="CreatePlanView"
+  :to="'/CreatePlanView'">
+    <v-icon>mdi-map-marker</v-icon>
+
+    <span>New Plan</span>
+  </v-btn>
+
+  <v-btn value="HistoryView"
+  :to="'/HistoryView'">
+    <v-icon>mdi-history</v-icon>
+
+    <span>History</span>
+  </v-btn>
+
+  <v-btn value="SettingsView"
+  :to="'/SettingsView'">
+    <v-icon>mdi-history</v-icon>
+
+    <span>Settings</span>
+  </v-btn>
+</v-bottom-navigation>
+  </v-container>
 </template>
 
 <style scoped>
