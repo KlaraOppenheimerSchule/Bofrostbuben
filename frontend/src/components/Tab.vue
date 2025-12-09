@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue'])
 
-const items = ['Details', 'Daten']
+const items = ['Übungsübersicht', 'Übungshistorie']
 
 const tab = computed({
   get: () => props.modelValue,
