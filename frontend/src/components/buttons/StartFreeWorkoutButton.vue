@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import Button from '../buttons/Button.vue'
-
 </script>
 
 <template>
-  <RouterLink to="/StartFreeWorkoutView">
-    <Button title1="Free" title2="Workout"></Button>
-  </RouterLink>
+  <v-col cols="auto">
+        <v-btn 
+        size="x-large" 
+        rounded="xl"
+        :to="'/StartFreeWorkoutView'"> Free Workout
+
+        </v-btn>
+  </v-col>
 </template>
 
 <style scoped>
