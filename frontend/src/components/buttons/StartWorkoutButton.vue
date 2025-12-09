@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Button from '../Buttons/Button.vue'
+import Button from '../buttons/Button.vue'
 
 </script>
 
 <template>
-  <RouterLink to="/createPlanView">
-    <Button title1="Create" title2="Workout Plan"> </Button>
+  <RouterLink to="/startWorkoutView">
+    <Button title1="Start" title2="Workout"> </Button>
   </RouterLink>
 </template>
 
