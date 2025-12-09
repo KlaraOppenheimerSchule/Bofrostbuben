@@ -8,12 +8,15 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-
 import 'unfonts.css' // Vuetify fonts
+import '@mdi/font/css/materialdesignicons.css' // load MDI font CSS
 
 const vuetify = createVuetify({
   components,
   directives,
+  icons: {
+    defaultSet: 'mdi', // use mdi as the default icon set
+  },
 })
 
 const app = createApp(App)

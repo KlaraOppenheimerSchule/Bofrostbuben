@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.2.9",
+    "@mdi/font": "^7.4.47",
     "node": "^20.19.6",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
