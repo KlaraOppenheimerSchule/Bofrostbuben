@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import Tab from '@/components/Tab.vue'
+
+const route = useRoute()
+const tab = ref('Übungsübersicht')
+
+if (route.query.tab === 'Übungshistorie') {
+  tab.value = 'Übungshistorie'
+}
+
+watch(
+  () => route.query.tab,
+  (newTab) => {
+    if (newTab === 'Übungshistorie') {
+      tab.value = 'Übungshistorie'
+    }
+  },
+)
+
+</script>
+
 <template>
-  <h1>das hier ist der übungskatalog</h1>
+  <Tab v-model="tab" />
 </template>
+
+<style scoped>
+
+</style>
