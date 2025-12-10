@@ -98,27 +98,21 @@ function savePlan() {
 
     <v-divider class="my-4" />
 
-    <v-row justify="space-between" align="center">
-      <v-btn outlined @click="onPrev" :disabled="currentStep === 0">
-        Zurück
-      </v-btn>
-      <v-spacer/>
-      <div>
+    <v-row class="mt-4" align="center" style="flex-wrap: nowrap;">
+      <v-col cols="auto">
+        <v-btn outlined @click="onPrev" :disabled="currentStep === 0">Zurück</v-btn>
+      </v-col>
+
+    <v-spacer />
+
+      <v-col cols="auto">
         <v-btn color="primary" @click="onPrimary">
           {{ currentStep < steps.length - 1 ? 'Weiter' : 'Plan speichern' }}
         </v-btn>
-      </div>
-    </v-row>
+  </v-col>
+</v-row>
   </v-card>
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
