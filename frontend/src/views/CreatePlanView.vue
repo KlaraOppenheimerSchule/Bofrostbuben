@@ -63,10 +63,6 @@ function onPrimary() {
   }
 }
 
-function skipStep() {
-  if (currentStep.value < steps.length - 1) currentStep.value++;
-}
-
 function savePlan() {
   console.log("Saving plan", JSON.parse(JSON.stringify(plan)));
 }
