@@ -24,9 +24,7 @@ const filteredItems = computed(() => {
     return itemPlaceholders
   }
 
-  return itemPlaceholders.filter(item =>
-    item.exerciseName === selectedExercise.value
-  )
+  return itemPlaceholders.filter((item) => item.exerciseName === selectedExercise.value)
 })
 
 const autocompleteItems = computed(() => {
@@ -36,14 +34,24 @@ const autocompleteItems = computed(() => {
   }
   return itemPlaceholders
 })
-
 </script>
 
 <template>
   <v-container class="mx-auto">
-    <v-autocomplete v-model="selectedExercise" v-model:search="searchInput" :items="autocompleteItems"
-      item-title="exerciseName" item-value="exerciseName" label="Übung suchen..." prepend-inner-icon="mdi-magnify"
-      clearable variant="outlined" density="comfortable" class="mb-4" no-data-text="Keine Übungen gefunden">
+    <v-autocomplete
+      v-model="selectedExercise"
+      v-model:search="searchInput"
+      :items="autocompleteItems"
+      item-title="exerciseName"
+      item-value="exerciseName"
+      label="Übung suchen..."
+      prepend-inner-icon="mdi-magnify"
+      clearable
+      variant="outlined"
+      density="comfortable"
+      class="mb-4"
+      no-data-text="Keine Übungen gefunden"
+    >
       <template v-slot:item="{ props, item }">
         <v-list-item v-bind="props" :subtitle="item.raw.muscleGroup"></v-list-item>
       </template>
@@ -51,7 +59,11 @@ const autocompleteItems = computed(() => {
 
     <v-list lines="two">
       <template v-for="(item, index) in filteredItems" :key="index">
-        <v-list-item :title="item.exerciseName" :subtitle="item.muscleGroup" :to="`/exercise/${index}`">
+        <v-list-item
+          :title="item.exerciseName"
+          :subtitle="item.muscleGroup"
+          :to="`/exercise/${index}`"
+        >
           <template v-slot:subtitle="{ subtitle }">
             <div v-html="subtitle"></div>
           </template>
