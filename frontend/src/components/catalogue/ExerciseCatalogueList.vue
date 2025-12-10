@@ -21,7 +21,7 @@ const itemPlaceholders = [
 
 <template>
   <v-container class="mx-auto">
-    <v-list :items="itemPlaceholders" lines="three" item-props>
+    <v-list :items="itemPlaceholders" lines="two" item-props>
       <template v-slot:subtitle="{ subtitle }">
         <div v-html="subtitle"></div>
       </template>

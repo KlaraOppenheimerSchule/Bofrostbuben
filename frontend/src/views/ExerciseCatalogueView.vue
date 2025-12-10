@@ -3,7 +3,7 @@ import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
 import StreakTracker from "@/components/StreakTracker.vue";
-import ExerciseCatalogueList from '@/components/ExerciseCatalogueList.vue';
+import ExerciseCatalogueList from '@/components/catalogue/ExerciseCatalogueList.vue';
 
 const route = useRoute()
 const tab = ref('Übungsübersicht')
