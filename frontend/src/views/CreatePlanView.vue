@@ -37,8 +37,8 @@ const plan = reactive<Plan>({
   days: [],
   exercises: []
 });
-
-const progress = computed(() =>
+// NOTE: renamed to `progressPercent` for clarity
+const progressPercent = computed(() =>
   Math.round(((currentStep.value + 1) / steps.length) * 100)
 );
 
@@ -75,7 +75,8 @@ function savePlan() {
         <h3 class="mb-0">Trainingsplan erstellen</h3>
         <div class="text-caption">Schritt {{ currentStep + 1 }} / {{ steps.length }}</div>
       </div>
-      <v-progress-linear :value="progress" height="8" rounded style="width:220px" />
+      <!-- use model-value to feed progress value into Vuetify's progress component -->
+      <v-progress-linear :model-value="progressPercent" height="8" rounded style="width:220px" />
     </v-row>
 
     <v-divider class="my-4" />
