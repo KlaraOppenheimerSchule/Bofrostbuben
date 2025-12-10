@@ -1,77 +1,121 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, watch } from 'vue'
 
-interface Exercise {
-  name: string;
-  muscleGroup?: string;
-}
-interface Day {
-  dayIndex: number;
-  exercises: Exercise[];
-}
-interface Plan {
-  sessionsPerWeek: number;
-  days: Day[];
-}
+type Exercise = { name: string; muscleGroup?: string }
+type Day = { dayIndex: number; exercises: Exercise[] }
+interface Plan { sessionsPerWeek: number; days: Day[] }
 
-const props = defineProps<{ plan: Plan }>();
+const props = defineProps<{ plan: Plan }>()
 const emit = defineEmits<{
-  (e: "next", payload?: Partial<Plan>): void;
-  (e: "prev"): void;
-  (e: "update-plan", payload: Partial<Plan>): void;
-}>();
+  (e: 'next', payload?: Partial<Plan>): void
+  (e: 'prev'): void
+  (e: 'update-plan', payload: Partial<Plan>): void
+}>()
 
-const activeTab = ref(0);
+// zero-based active tab index (0..n-1)
+const activeTab = ref<number>(0)
 
-function dayFor(index: number) {
-  return props.plan.days.find((d) => d.dayIndex === index);
-}
+// number of days to render (1..n)
+const daysCount = computed(() => Math.max(1, props.plan.sessionsPerWeek))
 
-function ensureDay(index: number) {
-  let day = props.plan.days.find((d) => d.dayIndex === index);
-  if (!day) {
-    day = { dayIndex: index, exercises: [] };
-    props.plan.days.push(day);
+/**
+ * Ensure the plan.days array contains Day objects for indexes 0..n-1.
+ * This normalizes the days array when sessionsPerWeek changes.
+ */
+function normalizeDays(count: number) {
+  // remove days with index >= count
+  props.plan.days = props.plan.days.filter(d => d.dayIndex < count)
+  // add missing days (0..count-1)
+  for (let i = 0; i < count; i++) {
+    if (!props.plan.days.some(d => d.dayIndex === i)) {
+      props.plan.days.push({ dayIndex: i, exercises: [] })
+    }
   }
-  return day;
+  // keep days sorted by index (optional but helpful)
+  props.plan.days.sort((a, b) => a.dayIndex - b.dayIndex)
 }
 
-function addExercise(dayIndex: number) {
-  const ex: Exercise = { name: "Liegestützen", muscleGroup: "Brust" };
-  const day = ensureDay(dayIndex);
-  day.exercises.push(ex);
-  emit("update-plan", { days: props.plan.days });
+/**
+ * Return the Day object for activeTab (or undefined if none).
+ * If it doesn't exist we create it (so UI always has a target).
+ */
+const currentDay = computed(() => {
+  if (!props.plan.days) return undefined
+  let d = props.plan.days.find(x => x.dayIndex === activeTab.value)
+  if (!d) {
+    d = { dayIndex: activeTab.value, exercises: [] }
+    props.plan.days.push(d)
+    // notify parent that days changed
+    emit('update-plan', { days: props.plan.days })
+  }
+  return d
+})
+
+// Keep plan.days in sync whenever sessionsPerWeek changes.
+watch(
+  () => props.plan.sessionsPerWeek,
+  (newCount) => {
+    const n = Math.max(0, newCount)
+    normalizeDays(n)
+    // clamp activeTab if it's out of range
+    if (activeTab.value >= n) activeTab.value = Math.max(0, n - 1)
+    emit('update-plan', { days: props.plan.days })
+  },
+  { immediate: true }
+)
+
+function addExerciseToActiveDay() {
+  // replace this with your real exercise picker / modal flow
+  const mock: Exercise = { name: 'Liegestützen', muscleGroup: 'Brust' }
+  const day = props.plan.days.find(d => d.dayIndex === activeTab.value)
+  if (!day) {
+    // should not happen because normalizeDays/ currentDay create it, but guard anyway
+    props.plan.days.push({ dayIndex: activeTab.value, exercises: [mock] })
+  } else {
+    day.exercises.push(mock)
+  }
+  emit('update-plan', { days: props.plan.days })
 }
 
 function done() {
-  emit("next", { days: props.plan.days });
+  emit('next', { days: props.plan.days })
+}
+
+function emitPrev() {
+  emit('prev')
 }
 </script>
 
-
 <template>
   <div>
-    <div class="mb-2">Tage bearbeiten ({{ plan.sessionsPerWeek }})</div>
+    <div class="mb-2">Tage bearbeiten</div>
 
-    <v-tabs v-model="activeTab">
-      <v-tab v-for="i in plan.sessionsPerWeek" :key="i">Tag {{ i }}</v-tab>
+    <!-- Tabs header -->
+    <v-tabs v-model="activeTab" background-color="transparent" grow>
+      <v-tab v-for="n in daysCount" :key="n - 1">TAG {{ n }}</v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="activeTab">
-      <v-tab-item v-for="i in plan.sessionsPerWeek" :key="i">
-        <div class="pa-2">
-          <div v-if="!dayFor(i)">Noch keine Übungen</div>
+    <!-- ONLY show content for the selected tab -->
+    <div class="pa-4">
+      <div v-if="!currentDay || currentDay.exercises.length === 0">
+        Noch keine Übungen
+      </div>
 
-          <div v-else>
-            <div v-for="(ex, idx) in dayFor(i)?.exercises" :key="idx">
-              • {{ ex.name }} <span class="text-caption">({{ ex.muscleGroup }})</span>
-            </div>
-          </div>
-
-          <v-btn class="mt-2" @click="addExercise(i)" small>+ Neue Übung</v-btn>
+      <div v-else>
+        <div v-for="(ex, idx) in currentDay.exercises" :key="idx">
+          • {{ ex.name }} <span class="text-caption">({{ ex.muscleGroup ?? '-' }})</span>
         </div>
-      </v-tab-item>
-    </v-tabs-items>
+      </div>
+
+      <!-- This button is rendered once for the active tab -->
+      <v-btn class="mt-4" @click="addExerciseToActiveDay" small>+ Neue Übung</v-btn>
+    </div>
+
+    
   </div>
 </template>
 
+
+
+<style scoped>
+</style>

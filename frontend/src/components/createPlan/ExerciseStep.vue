@@ -3,8 +3,15 @@ interface Exercise {
   name: string;
   muscleGroup?: string;
 }
-interface Plan {
+interface Day {
+  dayIndex: number;
   exercises: Exercise[];
+}
+interface Plan {
+  name: string;
+  sessionsPerWeek?: number;
+  exercises: Exercise[];
+  days: Day[];
 }
 
 const props = defineProps<{ plan: Plan }>();
@@ -14,34 +21,67 @@ const emit = defineEmits<{
   (e: "update-plan", payload: Partial<Plan>): void;
 }>();
 
-function addMockExercise() {
-  const ex: Exercise = { name: "Bankdrücken", muscleGroup: "Brust" };
-  props.plan.exercises.push(ex);
-  emit("update-plan", { exercises: props.plan.exercises });
+function goBack() {
+  emit("prev");
 }
 
 function finish() {
   emit("next");
 }
+
+const dayNames = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 </script>
 
 <template>
   <div>
-    <div class="mb-2">Übungen (Katalog & Auswahl)</div>
+    <v-card class="mb-4" variant="text">
+      <v-card-title>Trainingsplan Übersicht</v-card-title>
+      <v-card-subtitle>{{ plan.name }} - {{ plan.sessionsPerWeek }} Einheiten pro Woche</v-card-subtitle>
+    </v-card>
 
-    <div v-if="plan.exercises.length === 0">Noch keine ausgewählten Übungen.</div>
+    <!-- Plan Summary -->
+    <v-card class="mb-4" variant="outlined">
+      <v-card-text>
+        <v-empty-state
+          v-if="plan.days.length === 0"
+          icon="mdi-calendar-blank"
+          text="Keine Trainingstage konfiguriert."
+          headline=""
+        />
 
-    <div v-else>
-      <div v-for="(ex, idx) in plan.exercises" :key="idx">
-        • {{ ex.name }} <span class="text-caption">({{ ex.muscleGroup }})</span>
-      </div>
-    </div>
+        <div v-else>
+          <div v-for="(day, idx) in plan.days" :key="idx" class="mb-4">
+            <v-subheader class="px-0 font-weight-bold">
+              {{ dayNames[day.dayIndex] || `Tag ${day.dayIndex}` }}
+            </v-subheader>
 
-    <v-row class="mt-4" justify="space-between">
-      <div>
-        <v-btn text color="grey" @click="addMockExercise">+ Übung hinzufügen</v-btn>
-        <v-btn color="primary" class="ml-2" @click="finish">Fertig</v-btn>
-      </div>
-    </v-row>
+            <v-empty-state
+              v-if="day.exercises.length === 0"
+              icon="mdi-dumbbell"
+              text="Keine Übungen"
+              headline=""
+              class="py-2"
+            />
+
+            <div v-else class="ml-4">
+              <div v-for="(ex, exIdx) in day.exercises" :key="exIdx" class="mb-2">
+                <v-chip size="small" variant="outlined" class="mr-2">
+                  {{ ex.muscleGroup || "–" }}
+                </v-chip>
+                <span>{{ ex.name }}</span>
+              </div>
+            </div>
+
+            <v-divider v-if="idx < plan.days.length - 1" class="my-4" />
+          </div>
+        </div>
+      </v-card-text>
+    </v-card>
+
+
+    
   </div>
 </template>
+
+<style scoped>
+</style>
