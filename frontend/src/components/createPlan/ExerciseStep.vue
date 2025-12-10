@@ -29,6 +29,12 @@ function finish() {
   emit("next");
 }
 
+function removeExerciseFromDay(dayIdx: number, exIdx: number) {
+  // remove exercise from the specific day's exercises
+  props.plan.days[dayIdx].exercises.splice(exIdx, 1);
+  emit("update-plan", { days: props.plan.days });
+}
+
 const dayNames = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 </script>
 
@@ -64,11 +70,15 @@ const dayNames = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Sa
             />
 
             <div v-else class="ml-4">
-              <div v-for="(ex, exIdx) in day.exercises" :key="exIdx" class="mb-2">
+              <div v-for="(ex, exIdx) in day.exercises" :key="exIdx" class="mb-2 d-flex align-center">
                 <v-chip size="small" variant="outlined" class="mr-2">
                   {{ ex.muscleGroup || "–" }}
                 </v-chip>
-                <span>{{ ex.name }}</span>
+                <span class="mr-4">{{ ex.name }}</span>
+                <v-spacer />
+                <v-btn icon size="small" color="error" @click="removeExerciseFromDay(idx, exIdx)" aria-label="Löschen">
+                  <v-icon icon="mdi-delete" />
+                </v-btn>
               </div>
             </div>
 

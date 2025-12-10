@@ -77,6 +77,13 @@ function addExerciseToActiveDay() {
   emit('update-plan', { days: props.plan.days })
 }
 
+function removeExerciseFromActiveDay(exIdx: number) {
+  const day = props.plan.days.find(d => d.dayIndex === activeTab.value)
+  if (!day) return
+  day.exercises.splice(exIdx, 1)
+  emit('update-plan', { days: props.plan.days })
+}
+
 function done() {
   emit('next', { days: props.plan.days })
 }
@@ -102,8 +109,13 @@ function emitPrev() {
       </div>
 
       <div v-else>
-        <div v-for="(ex, idx) in currentDay.exercises" :key="idx">
-          • {{ ex.name }} <span class="text-caption">({{ ex.muscleGroup ?? '-' }})</span>
+        <div v-for="(ex, idx) in currentDay.exercises" :key="idx" class="d-flex align-center justify-space-between mb-2">
+          <div>
+            • {{ ex.name }} <span class="text-caption">({{ ex.muscleGroup ?? '-' }})</span>
+          </div>
+          <v-btn icon small color="error" @click="removeExerciseFromActiveDay(idx)" aria-label="Löschen">
+            <v-icon icon="mdi-delete" />
+          </v-btn>
         </div>
       </div>
 
