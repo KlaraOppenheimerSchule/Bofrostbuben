@@ -25,9 +25,4 @@ function goToHistoryTab() {
 </template>
 
 <style>
-.align-center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 </style>
