@@ -37,11 +37,6 @@ function next() {
       <div class="pa-4">{{ localSessions }}</div>
       <v-btn icon @click="increment"><v-icon>mdi-plus</v-icon></v-btn>
     </v-row>
-
-    <v-row class="mt-4" justify="end">
-      <v-btn outlined @click="() => emit('prev')">Zurück</v-btn>
-      <v-btn color="primary" class="ml-2" @click="next">Weiter</v-btn>
-    </v-row>
   </div>
 </template>
 

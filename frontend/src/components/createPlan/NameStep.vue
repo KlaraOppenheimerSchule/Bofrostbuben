@@ -39,10 +39,6 @@ function nextClick() {
       dense
       clearable
     />
-
-    <v-row class="mt-4" justify="end">
-      <v-btn color="primary" @click="nextClick">Weiter</v-btn>
-    </v-row>
   </div>
 </template>
 

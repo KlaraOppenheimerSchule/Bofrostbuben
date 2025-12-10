@@ -72,11 +72,6 @@ function done() {
         </div>
       </v-tab-item>
     </v-tabs-items>
-
-    <v-row class="mt-4" justify="end">
-      <v-btn outlined @click="() => emit('prev')">Zurück</v-btn>
-      <v-btn color="primary" @click="done">Weiter</v-btn>
-    </v-row>
   </div>
 </template>
 

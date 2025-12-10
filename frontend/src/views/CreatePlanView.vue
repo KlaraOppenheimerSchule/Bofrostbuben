@@ -4,7 +4,7 @@ import { reactive, ref, computed } from "vue";
 import NameStep from "../components/createPlan/NameStep.vue";
 import FrequencyStep from "../components/createPlan/FrequencyStep.vue";
 import DayEditor from "../components/createPlan/DayEditor.vue";
-import ExercisesStep from "../components/createPlan/ExercisesStep.vue";
+import ExercisesStep from "../components/createPlan/ExerciseStep.vue";
 
 // Types
 interface Exercise {
@@ -107,7 +107,6 @@ function savePlan() {
       </v-btn>
 
       <div>
-        <v-btn text color="grey" v-if="currentStep < steps.length - 1" @click="skipStep">Überspringen</v-btn>
         <v-btn color="primary" @click="onPrimary">
           {{ currentStep < steps.length - 1 ? 'Weiter' : 'Plan speichern' }}
         </v-btn>

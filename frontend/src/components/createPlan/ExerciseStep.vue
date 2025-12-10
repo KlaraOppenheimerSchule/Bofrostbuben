@@ -38,8 +38,6 @@ function finish() {
     </div>
 
     <v-row class="mt-4" justify="space-between">
-      <v-btn outlined @click="() => emit('prev')">Zurück</v-btn>
-
       <div>
         <v-btn text color="grey" @click="addMockExercise">+ Übung hinzufügen</v-btn>
         <v-btn color="primary" class="ml-2" @click="finish">Fertig</v-btn>
