@@ -11,6 +11,7 @@ const router = createRouter({
     { path: '/StartWorkoutView', component: () => import('../views/StartWorkoutView.vue') },
     { path: '/StartFreeWorkoutView', component: () => import('../views/StartFreeWorkoutView.vue') },
     { path: '/ShowPlanView', component: () => import('../views/ShowPlanView.vue') },
+    { path: '/WorkoutPlanOverviewView', component: () => import('../views/WorkoutPlanOverviewView.vue') },
     {
       path: '/ExerciseCatalogueView',
       name: 'ExerciseCatalogue',
