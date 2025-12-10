@@ -102,7 +102,7 @@ function savePlan() {
       <v-btn outlined @click="onPrev" :disabled="currentStep === 0">
         Zurück
       </v-btn>
-
+      <v-spacer/>
       <div>
         <v-btn color="primary" @click="onPrimary">
           {{ currentStep < steps.length - 1 ? 'Weiter' : 'Plan speichern' }}

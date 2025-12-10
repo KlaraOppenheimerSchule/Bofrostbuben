@@ -3,7 +3,7 @@ import { store } from '@/stores/color_store'
 </script>
 
 <template>
-  <v-bottom-navigation :elevation="6"grow>
+  <v-bottom-navigation app :elevation="6" grow>
   <v-btn rounded="xl"
   value="HomeView"
   :to="'/HomeView'"
@@ -66,50 +66,4 @@ import { store } from '@/stores/color_store'
 </template>
 
 <style scoped>
-.bottom-nav {
-  position: fixed;
-  bottom: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.625rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  border-radius: 2.5rem;
-  width: max-content;
-}
-
-.nav-btn {
-  width: 3.125rem;
-  height: 3.125rem;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.2s;
-}
-
-.nav-btn.active {
-  background: white;
-}
-
-.nav-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  filter: brightness(0) invert(1);
-}
-
-.nav-btn:hover {
-  background-color: RGBA(255, 255, 255, 0.2);
-}
-
-.nav-btn.active .nav-icon {
-  filter: v-bind('store.svgMainAppColorFilter');
-}
-
-.nav-btn.active:hover {
-  background-color: white;
-}
 </style>

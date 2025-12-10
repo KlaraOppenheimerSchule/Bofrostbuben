@@ -3,12 +3,15 @@ import NavigationBar from './components/NavigationBar.vue'
 </script>
 
 <template>
-<v-app>
-  <v-container class="align-center justify-center">
-  <RouterView />
-  <NavigationBar/>
-  </v-container>
-</v-app>
+  <v-app>
+    <v-main>
+      <v-container class="align-center justify-center">
+        <RouterView />
+      </v-container>
+    </v-main>
+
+    <NavigationBar/>
+  </v-app>
 
 </template>
 
