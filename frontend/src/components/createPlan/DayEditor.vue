@@ -83,14 +83,6 @@ function removeExerciseFromActiveDay(exIdx: number) {
   day.exercises.splice(exIdx, 1)
   emit('update-plan', { days: props.plan.days })
 }
-
-function done() {
-  emit('next', { days: props.plan.days })
-}
-
-function emitPrev() {
-  emit('prev')
-}
 </script>
 
 <template>

@@ -21,12 +21,6 @@ const nameRules = [
 watch(localName, (val) => {
   emit("update-plan", { name: val });
 });
-
-function nextClick() {
-  if (!localName.value || localName.value.length > 40) return;
-
-  emit("next", { name: localName.value });
-}
 </script>
 
 <template>

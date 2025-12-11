@@ -21,14 +21,6 @@ const emit = defineEmits<{
   (e: "update-plan", payload: Partial<Plan>): void;
 }>();
 
-function goBack() {
-  emit("prev");
-}
-
-function finish() {
-  emit("next");
-}
-
 function removeExerciseFromDay(dayIdx: number, exIdx: number) {
   // remove exercise from the specific day's exercises
   props.plan.days[dayIdx].exercises.splice(exIdx, 1);
