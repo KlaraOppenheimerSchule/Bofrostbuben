@@ -10,27 +10,19 @@ const UserName = ref(names[Math.floor(Math.random() * names.length)])
   <v-card density="compact" variant="text" border>
     <v-container fluid class="pa-0">
       <v-row align="center" no-gutters>
-
         <v-col cols="auto">
           <RouterLink to="/profileView">
-            <img
-              src="/assets/icons/muskelkater.svg"
-              alt="Logo"
-              class="avatar-icon"
-            />
+            <img src="/assets/icons/muskelkater.svg" alt="Logo" class="avatar-icon" />
           </RouterLink>
         </v-col>
 
-        <v-col cols="auto">
-          Hallo, {{ UserName }}!
-        </v-col>
+        <v-col cols="auto"> Hallo, {{ UserName }}! </v-col>
 
         <v-spacer />
 
         <v-col cols="auto">
           <StreakTracker />
         </v-col>
-
       </v-row>
     </v-container>
   </v-card>
