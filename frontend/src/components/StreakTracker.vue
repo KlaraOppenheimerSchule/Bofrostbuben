@@ -13,7 +13,7 @@ const randomNumber = ref(getRandomInt(100))
         <v-btn 
         size="x-large" 
         rounded="xl"
-        :to="'/historyView'">
+        :to="'/historyView':active="false">
         {{ randomNumber }}
         <v-icon
           color="primary"
@@ -26,5 +26,4 @@ const randomNumber = ref(getRandomInt(100))
 </v-col>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

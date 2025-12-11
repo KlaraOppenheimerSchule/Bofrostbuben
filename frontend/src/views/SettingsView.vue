@@ -1,3 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Option from '@/components/Option.vue'
+import GreetingBar from '@/components/GreetingBar.vue'
+</script>
 
-<template><h1>hier könnten die einstellungen sein</h1></template>
+<template>
+  <GreetingBar />
+  <Option />
+</template>

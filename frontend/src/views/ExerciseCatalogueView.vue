@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
+import GreetingBar from '@/components/GreetingBar.vue'
 
 const route = useRoute()
 const tab = ref('Übungsübersicht')
@@ -18,13 +19,11 @@ watch(
     }
   },
 )
-
 </script>
 
 <template>
+  <GreetingBar />
   <Tab v-model="tab" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
