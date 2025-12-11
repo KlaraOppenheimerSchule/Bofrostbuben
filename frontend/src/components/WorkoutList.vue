@@ -54,6 +54,9 @@ function openPlan(item) {
               </v-list-item-content>
             </v-list-item>
           </v-list>
+          <v-btn
+            :to ="'/WorkoutView'"
+          > --DEBUG-- zur Durchführen Ansicht</v-btn>
         </v-card>
       </v-col>
 

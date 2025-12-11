@@ -1,0 +1,45 @@
+{
+  "name": "Ganzkörper-3x*/Woche",
+  "sessionsPerWeek": 3,
+  "days": [
+    {
+      "dayIndex": 0,
+      "exercises": [
+        {
+          "id": "ex-01",
+          "name": "Kniebeuge",
+          "muscleGroup": "Beine",
+          "sets": [
+            { "reps": "", "weight": "" },
+            { "reps": "", "weight": "" }
+          ]
+        },
+        {
+          "id": "ex-02",
+          "name": "Bankdrücken",
+          "muscleGroup": "Brust",
+          "sets": [
+            { "reps": "", "weight": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayIndex": 1,
+      "exercises": [
+        {
+          "id": "ex-03",
+          "name": "Kreuzheben",
+          "muscleGroup": "Rücken",
+          "sets": [
+            { "reps": "", "weight": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayIndex": 2,
+      "exercises": []
+    }
+  ]
+}
