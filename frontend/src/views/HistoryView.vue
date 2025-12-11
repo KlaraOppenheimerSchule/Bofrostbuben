@@ -14,7 +14,7 @@ function goToHistoryTab() {
 </script>
 
 <template>
-  <GreetingBar/>
+  <GreetingBar />
   <Calender />
 
   <v-divider />
@@ -32,5 +32,4 @@ function goToHistoryTab() {
   />
 </template>
 
-<style>
-</style>
+<style></style>
