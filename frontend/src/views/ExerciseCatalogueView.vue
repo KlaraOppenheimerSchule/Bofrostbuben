@@ -2,8 +2,8 @@
 import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
-import ExerciseCatalogueList from '@/components/catalogue/ExerciseCatalogueList.vue';
-import ExerciseHistoricalData from '@/components/catalogue/ExerciseHistoricalData.vue';
+import ExerciseCatalogueList from '@/components/exerciseStuff/ExerciseCatalogueList.vue';
+import ExerciseHistoricalData from '@/components/exerciseStuff/ExerciseHistoricalData.vue';
 
 const route = useRoute()
 const tab = ref('Übungsübersicht')
