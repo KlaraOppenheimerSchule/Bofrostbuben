@@ -4,6 +4,6 @@ import { store } from '@/stores/color_store'
 
 
 <template>
-  <v-btn lass="stack-gap" size="x-large" rounded="xl" min-height="150" min-width="150" color="primary"
+  <v-btn lass="stack-gap" size="x-large" rounded="xl" min-height="150" min-width="200" color="primary"
     prepend-icon="mdi-plus" :to="'/createPlanView'">Create Workout</v-btn>
 </template>

@@ -7,7 +7,7 @@ import GreetingBar from '../components/GreetingBar.vue'
 
   <GreetingBar/>
   <v-main>
-    <v-container class="d-flex flex-column align-center justify-center" style="height: 80vh;">
+    <v-container class="d-flex flex-column align-center justify-center" style="height: 60vh;">
   <StartWorkoutButton align-center/>
     </v-container>
   </v-main>

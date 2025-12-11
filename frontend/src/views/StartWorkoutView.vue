@@ -4,7 +4,6 @@ import CreateWorkoutPlanButton from '@/components/buttons/CreateWorkoutPlanButto
 import FreeWorkoutButton from '@/components/buttons/StartFreeWorkoutButton.vue';
 import ShowWorkoutPlanButton from '@/components/buttons/ShowWorkoutPlanButton.vue';
 import GreetingBar from '@/components/GreetingBar.vue';
-
 //This is a conditional const; if it is true the CreateWorkoutPlanButton is displayed, otherwise the ShowWorkoutPlanButton
 const showCreatePlan = ref(true)
 </script>
@@ -13,7 +12,7 @@ const showCreatePlan = ref(true)
 
   <v-main>
     <GreetingBar/>
-    <v-container class="d-flex justify-center flex-column align-center"  style="height: 80vh; padding:5rem; gap:1rem;">
+    <v-container class="d-flex justify-center flex-column align-center"  style="height: 60vh; padding:5rem; gap:1rem;">
       <CreateWorkoutPlanButton v-if="showCreatePlan" align-center/>
 
       <ShowWorkoutPlanButton v-else />
