@@ -1,42 +1,30 @@
 <script setup>
-import { ref, defineAsyncComponent } from 'vue'
+import { ref } from 'vue'
+import PlanViewer from '@/components/Plan.vue'
 
 const items = [
-  { text: 'Plan 1', component: 'Plan1', json: '/data/Plan1.json' },
-  { text: 'Plan 2', component: 'Plan2', json: '/data/plan2.json' },
-  { text: 'Plan hinzufügen', component: null },
+  { text: 'Plan 1', json: '/data/Plan1.json' },
+  { text: 'Plan 2', json: '/data/Plan2.json' },
+  { text: 'Plan hinzufügen', json: null },
 ]
 
-const selectedComponent = ref(null)
-const selectedPlanName = ref('Keine Auswahl')
+const selected = ref(null)
 
 function openPlan(item) {
-  alert('openPlan called for', item)
-  if (!item.component) {
-    alert('This item has no component configured:', item)
+  if (!item || !item.json) {
+    // handle "add plan" or missing JSON
+    selected.value = null
     return
   }
-
-  selectedComponent.value = defineAsyncComponent(() =>
-    import(`@/components/${item.component}.vue`)
-      .then((m) => {
-        console.log('component loaded:', item.component)
-        selectedPlanName.value = item.text
-        return m
-      })
-      .catch((err) => {
-        console.error('Failed to load component', item.component, err)
-        return {
-          template: `<div><h3>Error loading ${item.component}</h3><pre>${err.message}</pre></div>`,
-        }
-      }),
-  )
+  console.log('openPlan', item)
+  selected.value = item
 }
 </script>
 
 <template>
   <v-container fluid class="pa-0 fill-height">
     <v-row no-gutters class="fill-height">
+      <!-- LEFT: list -->
       <v-col cols="3" class="fill-height">
         <v-card class="fill-height">
           <v-list class="fill-height" density="comfortable">
@@ -57,15 +45,22 @@ function openPlan(item) {
         </v-card>
       </v-col>
 
+      <!-- RIGHT: viewer -->
       <v-col cols="9" class="pa-4">
-        <div v-if="!selectedComponent">
+        <div v-if="!selected">
           <h2>Bitte wähle einen Plan</h2>
         </div>
 
-        <component v-else :is="selectedComponent" :plan-name="selectedPlanName" />
+        <PlanViewer
+          v-else
+          :json-path="selected.json"
+          :plan-name="selected.text"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<style scoped></style>
+<style scoped>
+.v-list-item { cursor: pointer; }
+</style>
