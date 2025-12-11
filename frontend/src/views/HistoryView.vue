@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Calender from '../components/Calender.vue'
 import { useRouter } from 'vue-router'
+import GreetingBar from '@/components/GreetingBar.vue'
 
 const router = useRouter()
 
@@ -13,6 +14,7 @@ function goToHistoryTab() {
 </script>
 
 <template>
+  <GreetingBar/>
   <Calender />
 
   <v-divider />
