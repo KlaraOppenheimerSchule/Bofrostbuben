@@ -2,8 +2,8 @@
 import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Tab from '@/components/Tab.vue'
-import StreakTracker from "@/components/StreakTracker.vue";
 import ExerciseCatalogueList from '@/components/catalogue/ExerciseCatalogueList.vue';
+import ExerciseHistoricalData from '@/components/catalogue/ExerciseHistoricalData.vue';
 
 const route = useRoute()
 const tab = ref('Übungsübersicht')
@@ -27,7 +27,7 @@ watch(
 const activeComponent = computed(() => {
   return tab.value === 'Übungshistorie'
     // which component to show in 'Übungshistorie'
-    ? StreakTracker // just a placeholder, TODO: replace with ExerciseData component (!)
+    ? ExerciseHistoricalData
     // which component to show in 'Übungsübersicht'
     : ExerciseCatalogueList
 })
