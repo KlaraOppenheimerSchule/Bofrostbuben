@@ -17,7 +17,23 @@ const vuetify = createVuetify({
   icons: {
     defaultSet: 'mdi', // use mdi as the default icon set
   },
+    theme: {
+    defaultTheme: 'appTheme',
+    themes: {
+      appTheme: {
+        colors: {
+          primary: '#710002',   // Change this
+          secondary: '#710002',
+          success: '#4CAF50',
+          info: '#2196F3',
+          warning: '#FB8C00',
+          error: '#FF5252',
+        },
+      },
+    },
+  },
 })
+
 
 const app = createApp(App)
 
