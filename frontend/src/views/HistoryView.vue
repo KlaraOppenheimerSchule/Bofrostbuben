@@ -32,5 +32,4 @@ function goToHistoryTab() {
   />
 </template>
 
-<style>
-</style>
+<style></style>

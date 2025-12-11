@@ -6,7 +6,7 @@ import ShowWorkoutPlanButton from '@/components/buttons/ShowWorkoutPlanButton.vu
 import GreetingBar from '@/components/GreetingBar.vue'
 
 //This is a conditional const; if it is true the CreateWorkoutPlanButton is displayed, otherwise the ShowWorkoutPlanButton
-const showCreatePlan = ref(true)
+const showCreatePlan = ref(false)
 </script>
 
 <template>
