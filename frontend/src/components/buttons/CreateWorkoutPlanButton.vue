@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { store } from '@/stores/color_store'
+</script>
+
 
 <template>
-  <v-col cols="auto">
-    <v-btn size="x-large" rounded="xl" :to="'/createPlanView'"> Create Workout Plan </v-btn>
-  </v-col>
+  <v-btn lass="stack-gap" size="x-large" rounded="xl" min-height="150" min-width="200" color="primary"
+    prepend-icon="mdi-plus" :to="'/createPlanView'">Create Workout</v-btn>
 </template>
-
-<style scoped></style>
