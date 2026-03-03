@@ -21,6 +21,10 @@ async function makeApp() {
   app.get("/excercises", async (req, res) => {
     await exerciseController.handleGetExercises(req, res);
   });
+  // POST /exercise creates a new excercise
+  app.post("/exercise", async (req, res) => {
+    await exerciseController.handleCreateExercise(req, res);
+  });
 
   app.get("/healthz", (req, res) => res.json({ status: "ok" }));
 
