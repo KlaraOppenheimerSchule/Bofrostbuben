@@ -36,5 +36,5 @@ format:
 	cd backend && npm install && npm run prettier
 
 analyze:
-	cd frontend && npm install && npx eslint src/ --fix
-	cd backend && npm install && npx eslint src/ --fix
+	cd frontend && npm install && npx eslint --fix
+	cd backend && npm install && npx eslint --fix
