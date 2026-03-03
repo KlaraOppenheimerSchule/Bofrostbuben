@@ -22,7 +22,7 @@ watch(
 </script>
 
 <template>
-    <GreetingBar />
+  <GreetingBar />
   <Tab v-model="tab" />
 </template>
 

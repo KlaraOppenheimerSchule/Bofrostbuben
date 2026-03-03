@@ -1,70 +1,67 @@
-
 <script setup lang="ts">
-import { reactive, ref, computed } from "vue";
-import NameStep from "../components/createPlan/NameStep.vue";
-import FrequencyStep from "../components/createPlan/FrequencyStep.vue";
-import DayEditor from "../components/createPlan/DayEditor.vue";
-import ExercisesStep from "../components/createPlan/ExerciseStep.vue";
+import { reactive, ref, computed } from 'vue'
+import NameStep from '../components/createPlan/NameStep.vue'
+import FrequencyStep from '../components/createPlan/FrequencyStep.vue'
+import DayEditor from '../components/createPlan/DayEditor.vue'
+import ExercisesStep from '../components/createPlan/ExerciseStep.vue'
 
 // Types
 interface Exercise {
-  id?: string;
-  name: string;
-  muscleGroup?: string;
+  id?: string
+  name: string
+  muscleGroup?: string
 }
 interface Day {
-  dayIndex: number;
-  exercises: Exercise[];
+  dayIndex: number
+  exercises: Exercise[]
 }
 interface Plan {
-  name: string;
-  sessionsPerWeek: number;
-  days: Day[];
-  exercises: Exercise[];
+  name: string
+  sessionsPerWeek: number
+  days: Day[]
+  exercises: Exercise[]
 }
 
 const steps = [
-  { component: NameStep, key: "name" },
-  { component: FrequencyStep, key: "frequency" },
-  { component: DayEditor, key: "days" },
-  { component: ExercisesStep, key: "exercises" }
-];
+  { component: NameStep, key: 'name' },
+  { component: FrequencyStep, key: 'frequency' },
+  { component: DayEditor, key: 'days' },
+  { component: ExercisesStep, key: 'exercises' },
+]
 
-const currentStep = ref(0);
+const currentStep = ref(0)
 const plan = reactive<Plan>({
-  name: "",
+  name: '',
   sessionsPerWeek: 3,
   days: [],
-  exercises: []
-});
+  exercises: [],
+})
 // NOTE: renamed to `progressPercent` for clarity
-const progressPercent = computed(() =>
-  Math.round(((currentStep.value + 1) / steps.length) * 100)
-);
+const progressPercent = computed(() => Math.round(((currentStep.value + 1) / steps.length) * 100))
 
 function onNext(payload?: Partial<Plan>) {
-  if (payload) onUpdatePlan(payload);
-  if (currentStep.value < steps.length - 1) currentStep.value++;
+  if (payload) onUpdatePlan(payload)
+  if (currentStep.value < steps.length - 1) currentStep.value++
 }
 
 function onPrev() {
-  if (currentStep.value > 0) currentStep.value--;
+  if (currentStep.value > 0) currentStep.value--
 }
 
 function onUpdatePlan(payload: Partial<Plan>) {
-  Object.assign(plan, payload);
+  Object.assign(plan, payload)
 }
 
 function onPrimary() {
   if (currentStep.value < steps.length - 1) {
-    currentStep.value++;
+    currentStep.value++
   } else {
-    savePlan();
+    savePlan()
   }
 }
 
 function savePlan() {
-  console.log("Saving plan", JSON.parse(JSON.stringify(plan)));
+  console.log('Saving plan', JSON.parse(JSON.stringify(plan)))
 }
 </script>
 
@@ -76,7 +73,7 @@ function savePlan() {
         <div class="text-caption">Schritt {{ currentStep + 1 }} / {{ steps.length }}</div>
       </div>
       <!-- use model-value to feed progress value into Vuetify's progress component -->
-      <v-progress-linear :model-value="progressPercent" height="8" rounded style="width:220px" />
+      <v-progress-linear :model-value="progressPercent" height="8" rounded style="width: 220px" />
     </v-row>
 
     <v-divider class="my-4" />
@@ -98,21 +95,20 @@ function savePlan() {
 
     <v-divider class="my-4" />
 
-    <v-row class="mt-4" align="center" style="flex-wrap: nowrap;">
+    <v-row class="mt-4" align="center" style="flex-wrap: nowrap">
       <v-col cols="auto">
         <v-btn outlined @click="onPrev" :disabled="currentStep === 0">Zurück</v-btn>
       </v-col>
 
-    <v-spacer />
+      <v-spacer />
 
       <v-col cols="auto">
         <v-btn color="primary" @click="onPrimary">
           {{ currentStep < steps.length - 1 ? 'Weiter' : 'Plan speichern' }}
         </v-btn>
-  </v-col>
-</v-row>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -10,9 +10,8 @@ import NavigationBar from './components/NavigationBar.vue'
       </v-container>
     </v-main>
 
-    <NavigationBar/>
+    <NavigationBar />
   </v-app>
-
 </template>
 
 <style scoped></style>

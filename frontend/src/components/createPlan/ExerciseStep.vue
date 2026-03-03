@@ -1,40 +1,42 @@
 <script setup lang="ts">
 interface Exercise {
-  name: string;
-  muscleGroup?: string;
+  name: string
+  muscleGroup?: string
 }
 interface Day {
-  dayIndex: number;
-  exercises: Exercise[];
+  dayIndex: number
+  exercises: Exercise[]
 }
 interface Plan {
-  name: string;
-  sessionsPerWeek?: number;
-  exercises: Exercise[];
-  days: Day[];
+  name: string
+  sessionsPerWeek?: number
+  exercises: Exercise[]
+  days: Day[]
 }
 
-const props = defineProps<{ plan: Plan }>();
+const props = defineProps<{ plan: Plan }>()
 const emit = defineEmits<{
-  (e: "next", payload?: Partial<Plan>): void;
-  (e: "prev"): void;
-  (e: "update-plan", payload: Partial<Plan>): void;
-}>();
+  (e: 'next', payload?: Partial<Plan>): void
+  (e: 'prev'): void
+  (e: 'update-plan', payload: Partial<Plan>): void
+}>()
 
 function removeExerciseFromDay(dayIdx: number, exIdx: number) {
   // remove exercise from the specific day's exercises
-  props.plan.days[dayIdx].exercises.splice(exIdx, 1);
-  emit("update-plan", { days: props.plan.days });
+  props.plan.days[dayIdx].exercises.splice(exIdx, 1)
+  emit('update-plan', { days: props.plan.days })
 }
 
-const dayNames = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+const dayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
 </script>
 
 <template>
   <div>
     <v-card class="mb-4" variant="text">
       <v-card-title>Trainingsplan Übersicht</v-card-title>
-      <v-card-subtitle>{{ plan.name }} - {{ plan.sessionsPerWeek }} Einheiten pro Woche</v-card-subtitle>
+      <v-card-subtitle
+        >{{ plan.name }} - {{ plan.sessionsPerWeek }} Einheiten pro Woche</v-card-subtitle
+      >
     </v-card>
 
     <!-- Plan Summary -->
@@ -62,13 +64,23 @@ const dayNames = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Sa
             />
 
             <div v-else class="ml-4">
-              <div v-for="(ex, exIdx) in day.exercises" :key="exIdx" class="mb-2 d-flex align-center">
+              <div
+                v-for="(ex, exIdx) in day.exercises"
+                :key="exIdx"
+                class="mb-2 d-flex align-center"
+              >
                 <v-chip size="small" variant="outlined" class="mr-2">
-                  {{ ex.muscleGroup || "–" }}
+                  {{ ex.muscleGroup || '–' }}
                 </v-chip>
                 <span class="mr-4">{{ ex.name }}</span>
                 <v-spacer />
-                <v-btn icon size="small" color="error" @click="removeExerciseFromDay(idx, exIdx)" aria-label="Löschen">
+                <v-btn
+                  icon
+                  size="small"
+                  color="error"
+                  @click="removeExerciseFromDay(idx, exIdx)"
+                  aria-label="Löschen"
+                >
                   <v-icon icon="mdi-delete" />
                 </v-btn>
               </div>
@@ -79,11 +91,7 @@ const dayNames = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Sa
         </div>
       </v-card-text>
     </v-card>
-
-
-    
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

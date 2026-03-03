@@ -3,7 +3,10 @@ import { ref, computed, watch } from 'vue'
 
 type Exercise = { name: string; muscleGroup?: string }
 type Day = { dayIndex: number; exercises: Exercise[] }
-interface Plan { sessionsPerWeek: number; days: Day[] }
+interface Plan {
+  sessionsPerWeek: number
+  days: Day[]
+}
 
 const props = defineProps<{ plan: Plan }>()
 const emit = defineEmits<{
@@ -24,10 +27,10 @@ const daysCount = computed(() => Math.max(1, props.plan.sessionsPerWeek))
  */
 function normalizeDays(count: number) {
   // remove days with index >= count
-  props.plan.days = props.plan.days.filter(d => d.dayIndex < count)
+  props.plan.days = props.plan.days.filter((d) => d.dayIndex < count)
   // add missing days (0..count-1)
   for (let i = 0; i < count; i++) {
-    if (!props.plan.days.some(d => d.dayIndex === i)) {
+    if (!props.plan.days.some((d) => d.dayIndex === i)) {
       props.plan.days.push({ dayIndex: i, exercises: [] })
     }
   }
@@ -41,7 +44,7 @@ function normalizeDays(count: number) {
  */
 const currentDay = computed(() => {
   if (!props.plan.days) return undefined
-  let d = props.plan.days.find(x => x.dayIndex === activeTab.value)
+  let d = props.plan.days.find((x) => x.dayIndex === activeTab.value)
   if (!d) {
     d = { dayIndex: activeTab.value, exercises: [] }
     props.plan.days.push(d)
@@ -61,13 +64,13 @@ watch(
     if (activeTab.value >= n) activeTab.value = Math.max(0, n - 1)
     emit('update-plan', { days: props.plan.days })
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 function addExerciseToActiveDay() {
   // replace this with your real exercise picker / modal flow
   const mock: Exercise = { name: 'Liegestützen', muscleGroup: 'Brust' }
-  const day = props.plan.days.find(d => d.dayIndex === activeTab.value)
+  const day = props.plan.days.find((d) => d.dayIndex === activeTab.value)
   if (!day) {
     // should not happen because normalizeDays/ currentDay create it, but guard anyway
     props.plan.days.push({ dayIndex: activeTab.value, exercises: [mock] })
@@ -78,7 +81,7 @@ function addExerciseToActiveDay() {
 }
 
 function removeExerciseFromActiveDay(exIdx: number) {
-  const day = props.plan.days.find(d => d.dayIndex === activeTab.value)
+  const day = props.plan.days.find((d) => d.dayIndex === activeTab.value)
   if (!day) return
   day.exercises.splice(exIdx, 1)
   emit('update-plan', { days: props.plan.days })
@@ -96,16 +99,24 @@ function removeExerciseFromActiveDay(exIdx: number) {
 
     <!-- ONLY show content for the selected tab -->
     <div class="pa-4">
-      <div v-if="!currentDay || currentDay.exercises.length === 0">
-        Noch keine Übungen
-      </div>
+      <div v-if="!currentDay || currentDay.exercises.length === 0">Noch keine Übungen</div>
 
       <div v-else>
-        <div v-for="(ex, idx) in currentDay.exercises" :key="idx" class="d-flex align-center justify-space-between mb-2">
+        <div
+          v-for="(ex, idx) in currentDay.exercises"
+          :key="idx"
+          class="d-flex align-center justify-space-between mb-2"
+        >
           <div>
             • {{ ex.name }} <span class="text-caption">({{ ex.muscleGroup ?? '-' }})</span>
           </div>
-          <v-btn icon small color="error" @click="removeExerciseFromActiveDay(idx)" aria-label="Löschen">
+          <v-btn
+            icon
+            small
+            color="error"
+            @click="removeExerciseFromActiveDay(idx)"
+            aria-label="Löschen"
+          >
             <v-icon icon="mdi-delete" />
           </v-btn>
         </div>
@@ -114,12 +125,7 @@ function removeExerciseFromActiveDay(exIdx: number) {
       <!-- This button is rendered once for the active tab -->
       <v-btn class="mt-4" @click="addExerciseToActiveDay" small>+ Neue Übung</v-btn>
     </div>
-
-    
   </div>
 </template>
 
-
-
-<style scoped>
-</style>
+<style scoped></style>
