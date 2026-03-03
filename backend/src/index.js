@@ -6,11 +6,19 @@ const ExerciseController = require("./adapters/http/ExerciseController");
 const ExerciseService = require("./application/ExerciseService");
 const MongoDbExerciseRepository = require("./adapters/db/MongoDbExerciseRepository");
 
+const PlanController = require("./adapters/http/PlanController");
+const PlanService = require("./application/PlanService");
+const MongoDbPlanRepository = require("./adapters/db/MongoDbPlanRepository");
+
 const PORT = process.env.PORT || 3000;
 
 const exerciseRepository = new MongoDbExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
+
+const planRepository = new MongoDbPlanRepository();
+const planService = new PlanService(planRepository);
+const planController = new PlanController(planService);
 
 async function makeApp() {
   const app = express();
@@ -20,6 +28,7 @@ async function makeApp() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
+ 
   app.use(bodyParser.json());
 
   // GET /exercises returns a list of all exercises
@@ -38,6 +47,14 @@ async function makeApp() {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
+  });
+  // GET /plans returns a list of all plans
+  app.get("/plans", async (req, res) => {
+    await planController.handleGetPlans(req, res);
+  });
+  // POST /plan creates a new plan
+  app.post("/plan", async (req, res) => {
+    await planController.handleCreatePlan(req, res);
   });
 
   app.get("/healthz", (req, res) => res.json({ status: "ok" }));
