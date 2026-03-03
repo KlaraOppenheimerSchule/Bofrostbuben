@@ -31,8 +31,8 @@ async function makeApp() {
   return app;
 }
 
+// run as a script
 if (require.main === module) {
-  // run as a script
   makeApp()
     .then(app => {
       const server = app.listen(PORT, "0.0.0.0", () => {
