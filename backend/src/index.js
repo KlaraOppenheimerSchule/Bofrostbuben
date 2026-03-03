@@ -5,6 +5,7 @@ const cors = require("cors");
 const ExerciseController = require("./adapters/http/ExerciseController");
 const ExerciseService = require("./application/ExerciseService");
 const MongoDbExerciseRepository = require("./adapters/db/MongoDbExerciseRepository");
+
 const PlanController = require("./adapters/http/PlanController");
 const PlanService = require("./application/PlanService");
 const MongoDbPlanRepository = require("./adapters/db/MongoDbPlanRepository");
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 const exerciseRepository = new MongoDbExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
+
 const planRepository = new MongoDbPlanRepository();
 const planService = new PlanService(planRepository);
 const planController = new PlanController(planService);
