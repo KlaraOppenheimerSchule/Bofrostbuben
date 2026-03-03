@@ -25,10 +25,10 @@ class MongoDbExerciseRepository {
       if (!this.collection) await this.connect();
       const exercises = await this.collection.find({}).toArray();
 
-      // if the exercises collection is empty, return array with "No exercises found"
         if (exercises.length === 0) {
             return [{ name: "No exercises found", muscleGroup: "", description: "" }];
         }   
+        
       return exercises;
     } catch (error) {
       throw new Error(`Failed to fetch exercises: ${error.message}`);

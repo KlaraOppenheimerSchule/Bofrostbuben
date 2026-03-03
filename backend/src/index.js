@@ -19,7 +19,6 @@ async function makeApp() {
 
   // GET /exercises returns a list of all exercises
   app.get("/exercises", async (req, res) => {
-    console.log("GET /excercises requested");
     try {
       await exerciseController.handleGetExercises(req, res);
     } catch (error) {
