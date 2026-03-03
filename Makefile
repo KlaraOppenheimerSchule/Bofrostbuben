@@ -1,4 +1,4 @@
-.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev
+.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev format analyze
 
 ### shortcuts/aliases
 
@@ -32,7 +32,9 @@ stop-dev:
 	docker compose stop frontend-dev backend db
 
 format:
-	cd frontend && npm run prettier
-	cd backend && npm run prettier
-	cd frontend && npx eslint src/ --fix
-	cd backend && npx eslint src/ --fix
+	cd frontend && npm install && npm run prettier
+	cd backend && npm install && npm run prettier
+
+analyze:
+	cd frontend && npm install && npx eslint src/ --fix
+	cd backend && npm install && npx eslint src/ --fix
