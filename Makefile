@@ -32,4 +32,7 @@ stop-dev:
 	docker compose stop frontend-dev backend db
 
 format:
-	cd frontend && npm run format
+	cd frontend && npm run prettier
+	cd backend && npm run prettier
+	cd frontend && npx eslint src/ --fix
+	cd backend && npx eslint src/ --fix

@@ -4,7 +4,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -13,7 +14,10 @@
     "pg": "^8.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.2",
+    "globals": "^17.4.0",
+    "nodemon": "^3.1.0",
+    "prettier": "3.8.1"
   }
 }
-
