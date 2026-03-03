@@ -1,33 +1,29 @@
-const express = require("express");
+class ExerciseController {
+  constructor(exerciseService) {
+    this.exerciseService = exerciseService;
+  }
 
-function ExerciseController(exerciseService) {
-  const router = express.Router();
-
-  // GET /exercise
-  // GET /exercises
-  router.get("/exercises", async (request, response) => {
+  async handleGetExercises(request, response) {
     try {
-      const exerciseList = await exerciseService.getAllExercises();
+      const exerciseList = await this.exerciseService.getAllExercises();
       response.json(exerciseList);
+      return;
     } catch (error) {
       console.error("Failed to fetch exercise list:", error);
       response.status(error.status || 500).json({ error: error.message || "internal server error" });
     }
-  });
+  }
 
-  // POST /exercise
-  router.post("/exercise", async (request, response) => {
+  async handleCreateExercise(request, response) {
     try {
       const exerciseData = request.body || {};
-      const createdExercise = await exerciseService.createExercise(exerciseData);
+      const createdExercise = await this.exerciseService.createExercise(exerciseData);
       response.status(201).json(createdExercise);
+      return;
     } catch (error) {
       console.error("Failed to create exercise:", error);
       response.status(error.status || 500).json({ error: error.message || "internal server error" });
     }
-  });
-
-  return router;
-}
+}}
 
 module.exports = ExerciseController;
