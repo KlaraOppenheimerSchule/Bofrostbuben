@@ -4,14 +4,14 @@ const cors = require("cors");
 
 const ExerciseController = require("./adapters/http/ExerciseController");
 const ExerciseService = require("./application/ExerciseService");
-const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
+const MongoDbExerciseRepository = require("./adapters/db/MongoDbExerciseRepository");
 const PlanController = require("./adapters/http/PlanController");
 const PlanService = require("./application/PlanService");
 const MongoDbPlanRepository = require("./adapters/db/MongoDbPlanRepository");
 
 const PORT = process.env.PORT || 3000;
 
-const exerciseRepository = new InMemoryExerciseRepository();
+const exerciseRepository = new MongoDbExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
 const planRepository = new MongoDbPlanRepository();
@@ -29,13 +29,22 @@ async function makeApp() {
  
   app.use(bodyParser.json());
 
-  // GET /excercises returns a list of all excercises
-  app.get("/excercises", async (req, res) => {
-    await exerciseController.handleGetExercises(req, res);
+  // GET /exercises returns a list of all exercises
+  app.get("/exercises", async (req, res) => {
+    try {
+      await exerciseController.handleGetExercises(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   });
+  
   // POST /exercise creates a new excercise
   app.post("/exercise", async (req, res) => {
-    await exerciseController.handleCreateExercise(req, res);
+    try {
+      await exerciseController.handleCreateExercise(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   });
   // GET /plans returns a list of all plans
   app.get("/plans", async (req, res) => {

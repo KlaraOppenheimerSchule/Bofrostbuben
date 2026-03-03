@@ -9,8 +9,7 @@ class ExerciseController {
       response.json(exerciseList);
       return;
     } catch (error) {
-      console.error("Failed to fetch exercise list:", error);
-      response.status(error.status || 500).json({ error: error.message || "internal server error" });
+      response.status(error.status || 500).json({ error: error.message || "Failed to fetch exercise: internal server error" });
     }
   }
 
@@ -21,8 +20,7 @@ class ExerciseController {
       response.status(201).json(createdExercise);
       return;
     } catch (error) {
-      console.error("Failed to create exercise:", error);
-      response.status(error.status || 500).json({ error: error.message || "internal server error" });
+      response.status(error.status || 500).json({ error: error.message || "Failed to create exercise: internal server error" });
     }
 }}
 
