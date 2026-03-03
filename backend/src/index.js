@@ -14,7 +14,12 @@ const exerciseController = new ExerciseController(exerciseService);
 
 async function makeApp() {
   const app = express();
-  app.use(cors());
+  app.use(cors({
+    origin: '*',
+    credentials: false,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
   app.use(bodyParser.json());
 
   // GET /exercises returns a list of all exercises

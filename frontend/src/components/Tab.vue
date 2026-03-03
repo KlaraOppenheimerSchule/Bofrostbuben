@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 
 const props = defineProps<{
   modelValue: string
@@ -14,6 +14,115 @@ const tab = computed({
   set: (val) => emit('update:modelValue', val),
 })
 
+const exercises = ref<any[]>([])
+const loading = ref(false)
+const error = ref<string | null>(null)
+
+// Form dialog state
+const showCreateDialog = ref(false)
+const formData = ref({
+  name: '',
+  muscleGroup: '',
+  description: ''
+})
+const muscleGroups = ['chest', 'back', 'legs', 'shoulders', 'biceps','triceps', 'core', 'cardio']
+const submitting = ref(false)
+const formError = ref<string | null>(null)
+
+// Use localhost for API calls (browser accesses host, not Docker network)
+const API_BASE_URL = 'http://localhost:3000'
+
+const fetchExercises = async () => {
+  loading.value = true
+  error.value = null
+  console.log('Fetching exercises from:', `${API_BASE_URL}/exercises`)
+  try {
+    const response = await fetch(`${API_BASE_URL}/exercises`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    exercises.value = await response.json()
+    console.log('Exercises fetched:', exercises.value)
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to fetch exercises'
+    console.error('Fetch error:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
+const openCreateDialog = () => {
+  showCreateDialog.value = true
+  formError.value = null
+}
+
+const closeCreateDialog = () => {
+  showCreateDialog.value = false
+  resetForm()
+}
+
+const resetForm = () => {
+  formData.value = {
+    name: '',
+    muscleGroup: '',
+    description: ''
+  }
+  formError.value = null
+}
+
+const submitForm = async () => {
+  // Validate form
+  if (!formData.value.name.trim()) {
+    formError.value = 'Exercise name is required'
+    return
+  }
+  if (!formData.value.muscleGroup) {
+    formError.value = 'Muscle group is required'
+    return
+  }
+
+  submitting.value = true
+  formError.value = null
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/exercise`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData.value)
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const created = await response.json()
+    exercises.value.push(created)
+    closeCreateDialog()
+  } catch (err) {
+    formError.value = err instanceof Error ? err.message : 'Failed to create exercise'
+    console.error('Create error:', err)
+  } finally {
+    submitting.value = false
+  }
+}
+
+// Fetch exercises on component mount if current tab is "Übungsübersicht"
+onMounted(() => {
+  console.log('Tab component mounted, current tab:', tab.value)
+  if (tab.value === 'Übungsübersicht') {
+    fetchExercises()
+  }
+})
+
+// Fetch exercises when the "Übungsübersicht" tab is clicked
+watch(
+  () => tab.value,
+  (newTab) => {
+    console.log('Tab changed to:', newTab)
+    if (newTab === 'Übungsübersicht') {
+      fetchExercises()
+    }
+  }
+)
+
 const text =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 </script>
@@ -25,12 +134,96 @@ const text =
     </v-tabs>
 
     <v-tabs-window v-model="tab">
-      <v-tabs-window-item v-for="item in items" :key="item" :value="item">
+      <v-tabs-window-item value="Übungsübersicht">
+        <v-card color="basil" flat>
+          <v-card-text>
+            <div v-if="tab === 'Übungsübersicht'">
+              <v-btn color="primary" @click="openCreateDialog" class="mb-4">
+                Create New Exercise
+              </v-btn>
+
+              <div v-if="loading" class="text-center">
+                <v-progress-circular indeterminate></v-progress-circular>
+              </div>
+
+              <div v-else-if="error" class="text-error">
+                Error: {{ error }}
+              </div>
+
+              <div v-else-if="exercises.length === 0" class="text-center">
+                No exercises available. Create one to get started!
+              </div>
+
+              <v-list v-else>
+                <v-list-item v-for="exercise in exercises" :key="exercise._id" class="mb-2">
+                  <v-card>
+                    <v-card-title>{{ exercise.name }}</v-card-title>
+                    <v-card-text>
+                      <p><strong>Muscle Group:</strong> {{ exercise.muscleGroup }}</p>
+                      <p><strong>Description:</strong> {{ exercise.description }}</p>
+                    </v-card-text>
+                  </v-card>
+                </v-list-item>
+              </v-list>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-tabs-window-item>
+
+      <v-tabs-window-item value="Übungshistorie">
         <v-card color="basil" flat>
           <v-card-text>{{ text }}</v-card-text>
         </v-card>
       </v-tabs-window-item>
     </v-tabs-window>
+
+    <!-- Create Exercise Dialog -->
+    <v-dialog v-model="showCreateDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Create New Exercise</v-card-title>
+        <v-card-text>
+          <div v-if="formError" class="text-error mb-4">
+            {{ formError }}
+          </div>
+
+          <v-text-field
+            v-model="formData.name"
+            label="Exercise Name"
+            placeholder="e.g., Push-ups"
+            required
+            outlined
+            class="mb-4"
+          ></v-text-field>
+
+          <v-select
+            v-model="formData.muscleGroup"
+            :items="muscleGroups"
+            label="Muscle Group"
+            required
+            outlined
+            class="mb-4"
+          ></v-select>
+
+          <v-textarea
+            v-model="formData.description"
+            label="Description"
+            placeholder="Optional description..."
+            outlined
+            rows="3"
+          ></v-textarea>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="closeCreateDialog" :disabled="submitting">
+            Cancel
+          </v-btn>
+          <v-btn color="primary" @click="submitForm" :disabled="submitting" :loading="submitting">
+            Create
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
