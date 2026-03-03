@@ -7,6 +7,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue'])
 
+// ============= STATE =============
 const items = ['Übungsübersicht', 'Übungshistorie']
 
 const tab = computed({
@@ -18,7 +19,6 @@ const exercises = ref<any[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
 
-// Form dialog state
 const showCreateDialog = ref(false)
 const formData = ref({
   name: '',
@@ -29,12 +29,55 @@ const muscleGroups = ['chest', 'back', 'legs', 'shoulders', 'biceps','triceps', 
 const submitting = ref(false)
 const formError = ref<string | null>(null)
 
-// Use localhost for API calls (browser accesses host, not Docker network)
 const API_BASE_URL = 'http://localhost:3000'
 
-const fetchExercises = async () => {
-  loading.value = true
+// ============= HELPERS =============
+const isExerciseOverviewTabActive = () => tab.value === 'Übungsübersicht'
+
+const clearFormError = () => {
+  formError.value = null
+}
+
+const clearExercisesError = () => {
   error.value = null
+}
+
+const validateExerciseForm = () => {
+  if (!formData.value.name.trim()) {
+    formError.value = 'Exercise name is required'
+    return false
+  }
+  if (!formData.value.muscleGroup) {
+    formError.value = 'Muscle group is required'
+    return false
+  }
+  return true
+}
+
+const resetFormData = () => {
+  formData.value = {
+    name: '',
+    muscleGroup: '',
+    description: ''
+  }
+}
+
+// ============= DIALOG ACTIONS =============
+const openCreateExerciseDialog = () => {
+  showCreateDialog.value = true
+  clearFormError()
+}
+
+const closeCreateExerciseDialog = () => {
+  showCreateDialog.value = false
+  resetFormData()
+  clearFormError()
+}
+
+// ============= API CALLS =============
+const fetchExercisesFromBackend = async () => {
+  loading.value = true
+  clearExercisesError()
   console.log('Fetching exercises from:', `${API_BASE_URL}/exercises`)
   try {
     const response = await fetch(`${API_BASE_URL}/exercises`)
@@ -51,38 +94,9 @@ const fetchExercises = async () => {
   }
 }
 
-const openCreateDialog = () => {
-  showCreateDialog.value = true
-  formError.value = null
-}
-
-const closeCreateDialog = () => {
-  showCreateDialog.value = false
-  resetForm()
-}
-
-const resetForm = () => {
-  formData.value = {
-    name: '',
-    muscleGroup: '',
-    description: ''
-  }
-  formError.value = null
-}
-
-const submitForm = async () => {
-  // Validate form
-  if (!formData.value.name.trim()) {
-    formError.value = 'Exercise name is required'
-    return
-  }
-  if (!formData.value.muscleGroup) {
-    formError.value = 'Muscle group is required'
-    return
-  }
-
+const createExerciseAndAddToList = async () => {
   submitting.value = true
-  formError.value = null
+  clearFormError()
 
   try {
     const response = await fetch(`${API_BASE_URL}/exercise`, {
@@ -95,7 +109,7 @@ const submitForm = async () => {
     }
     const created = await response.json()
     exercises.value.push(created)
-    closeCreateDialog()
+    closeCreateExerciseDialog()
   } catch (err) {
     formError.value = err instanceof Error ? err.message : 'Failed to create exercise'
     console.error('Create error:', err)
@@ -104,22 +118,29 @@ const submitForm = async () => {
   }
 }
 
-// Fetch exercises on component mount if current tab is "Übungsübersicht"
+// ============= FORM SUBMISSION =============
+const submitExerciseForm = async () => {
+  if (!validateExerciseForm()) return
+  await createExerciseAndAddToList()
+}
+
+// ============= LIFECYCLE =============
+const loadExercisesWhenTabIsShown = () => {
+  if (isExerciseOverviewTabActive()) {
+    fetchExercisesFromBackend()
+  }
+}
+
 onMounted(() => {
   console.log('Tab component mounted, current tab:', tab.value)
-  if (tab.value === 'Übungsübersicht') {
-    fetchExercises()
-  }
+  loadExercisesWhenTabIsShown()
 })
 
-// Fetch exercises when the "Übungsübersicht" tab is clicked
 watch(
   () => tab.value,
   (newTab) => {
     console.log('Tab changed to:', newTab)
-    if (newTab === 'Übungsübersicht') {
-      fetchExercises()
-    }
+    loadExercisesWhenTabIsShown()
   }
 )
 
@@ -137,8 +158,8 @@ const text =
       <v-tabs-window-item value="Übungsübersicht">
         <v-card color="basil" flat>
           <v-card-text>
-            <div v-if="tab === 'Übungsübersicht'">
-              <v-btn color="primary" @click="openCreateDialog" class="mb-4">
+            <div v-if="isExerciseOverviewTabActive()">
+              <v-btn color="primary" @click="openCreateExerciseDialog" class="mb-4">
                 Create New Exercise
               </v-btn>
 
@@ -215,10 +236,10 @@ const text =
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="closeCreateDialog" :disabled="submitting">
+          <v-btn @click="closeCreateExerciseDialog" :disabled="submitting">
             Cancel
           </v-btn>
-          <v-btn color="primary" @click="submitForm" :disabled="submitting" :loading="submitting">
+          <v-btn color="primary" @click="submitExerciseForm" :disabled="submitting" :loading="submitting">
             Create
           </v-btn>
         </v-card-actions>
