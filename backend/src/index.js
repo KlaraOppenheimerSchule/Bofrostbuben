@@ -2,39 +2,24 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const ExerciseService = require("./application/ExerciseService");
 const ExerciseController = require("./adapters/http/ExerciseController");
-
+const ExerciseService = require("./application/ExerciseService");
 const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
 
 const PORT = process.env.PORT || 3000;
+
+const exerciseRepository = new InMemoryExerciseRepository();
+const exerciseService = new ExerciseService(exerciseRepository);
+const exerciseController = new ExerciseController(exerciseService);
 
 async function makeApp() {
   const app = express();
   app.use(cors());
   app.use(bodyParser.json());
 
-  // Always use the in-memory repository for now (no DB usage)
-  const repo = new InMemoryExerciseRepository();
-
-  const service = new ExerciseService(repo);
-  // mount controller at root so we expose:
-  // GET  /exercises
-  // POST /exercise
-  app.use("/", ExerciseController(service));
-
-  // root route: return a single (static) exercise object from the service
-  app.get("/", async (req, res) => {
-    try {
-      const exercises = await service.getAllExercises();
-      if (!exercises || exercises.length === 0) {
-        return res.status(404).json({ error: "no exercises available" });
-      }
-      return res.json(exercises[0]);
-    } catch (err) {
-      console.error("Failed to fetch root exercise:", err);
-      return res.status(err.status || 500).json({ error: err.message || "internal server error" });
-    }
+  // GET /excercises returns a list of all excercises
+  app.get("/excercises", async (req, res) => {
+    await exerciseController.handleGetExercises(req, res);
   });
 
   app.get("/healthz", (req, res) => res.json({ status: "ok" }));
