@@ -1,0 +1,55 @@
+const { MongoClient } = require("mongodb");
+
+class MongoDbExerciseRepository {
+  constructor(mongoUri = process.env.MONGO_URL || "mongodb://appuser:apppass@db:27017/appdb", dbName = "appdb", collectionName = "exercises") {
+    this.mongoUri = mongoUri;
+    this.dbName = dbName;
+    this.collectionName = collectionName;
+    this.client = null;
+    this.collection = null;
+  }
+
+  async connect() {
+    try {
+      this.client = new MongoClient(this.mongoUri);
+      await this.client.connect();
+      const db = this.client.db(this.dbName);
+      this.collection = db.collection(this.collectionName);
+      console.log("MongoDB connected successfully");
+    } catch (error) {
+      console.error("MongoDB connection failed:", error.message);
+      throw new Error(`Failed to connect to MongoDB: ${error.message}`);
+    }
+  }
+
+  async findAll() {
+    try {
+      if (!this.collection) await this.connect();
+      const exercises = await this.collection.find({}).toArray();
+      return exercises;
+    } catch (error) {
+      console.error("Failed to fetch exercises from MongoDB:", error.message);
+      throw new Error(`Failed to fetch exercises: ${error.message}`);
+    }
+  }
+
+  async save({ name, muscleGroup, description }) {
+    try {
+      if (!this.collection) await this.connect();
+      
+      const obj = {
+        name,
+        muscleGroup,
+        description: description || "",
+        createdAt: new Date()
+      };
+      const result = await this.collection.insertOne(obj);
+      return { ...obj, _id: result.insertedId };
+    } catch (error) {
+      console.error("Failed to save exercise to MongoDB:", error.message);
+      throw new Error(`Failed to save exercise: ${error.message}`);
+    }
+  }
+}
+
+module.exports = MongoDbExerciseRepository;

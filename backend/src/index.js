@@ -4,11 +4,11 @@ const cors = require("cors");
 
 const ExerciseController = require("./adapters/http/ExerciseController");
 const ExerciseService = require("./application/ExerciseService");
-const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
+const MongoDbExerciseRepository = require("./adapters/db/MongoDbExerciseRepository");
 
 const PORT = process.env.PORT || 3000;
 
-const exerciseRepository = new InMemoryExerciseRepository();
+const exerciseRepository = new MongoDbExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
 
