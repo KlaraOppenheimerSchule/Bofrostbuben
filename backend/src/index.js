@@ -7,20 +7,26 @@ const ExerciseService = require("./application/ExerciseService");
 const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
 const PlanController = require("./adapters/http/PlanController");
 const PlanService = require("./application/PlanService");
-const InMemoryPlanRepository = require("./adapters/db/InMemoryPlanRepository");
+const MongoDbPlanRepository = require("./adapters/db/MongoDbPlanRepository");
 
 const PORT = process.env.PORT || 3000;
 
 const exerciseRepository = new InMemoryExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
-const planRepository = new InMemoryPlanRepository();
+const planRepository = new MongoDbPlanRepository();
 const planService = new PlanService(planRepository);
 const planController = new PlanController(planService);
 
 async function makeApp() {
   const app = express();
-  app.use(cors());
+  app.use(cors({
+    origin: '*',
+    credentials: false,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+ 
   app.use(bodyParser.json());
 
   // GET /excercises returns a list of all excercises

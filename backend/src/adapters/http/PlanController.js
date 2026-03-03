@@ -7,26 +7,25 @@ class PlanController {
       try {
         const planList = await this.planService.getAllPlans();
         response.json(planList);
-        return;
       } catch (error) {
-        console.error("Failed to fetch plan list:", error);
-        response
-          .status(error.status || 500)
-          .json({ error: error.message || "internal server error" });
+        throw error;
       }
     }
   
     async handleCreatePlan(request, response) {
       try {
         const planData = request.body || {};
+  
+        if (!planData.days || !Array.isArray(planData.days)) {
+          const err = new Error("Invalid plan data: 'days' must be an array");
+          err.status = 400;
+          throw err;
+        }
+  
         const createdPlan = await this.planService.createPlan(planData);
         response.status(201).json(createdPlan);
-        return;
       } catch (error) {
-        console.error("Failed to create plan:", error);
-        response
-          .status(error.status || 500)
-          .json({ error: error.message || "internal server error" });
+        throw error;
       }
     }
   }
