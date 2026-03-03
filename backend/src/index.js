@@ -5,12 +5,18 @@ const cors = require("cors");
 const ExerciseController = require("./adapters/http/ExerciseController");
 const ExerciseService = require("./application/ExerciseService");
 const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
+const PlanController = require("./adapters/http/PlanController");
+const PlanService = require("./application/PlanService");
+const InMemoryPlanRepository = require("./adapters/db/InMemoryPlanRepository");
 
 const PORT = process.env.PORT || 3000;
 
 const exerciseRepository = new InMemoryExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
+const planRepository = new InMemoryPlanRepository();
+const planService = new PlanService(planRepository);
+const planController = new PlanController(planService);
 
 async function makeApp() {
   const app = express();
@@ -24,6 +30,14 @@ async function makeApp() {
   // POST /exercise creates a new excercise
   app.post("/exercise", async (req, res) => {
     await exerciseController.handleCreateExercise(req, res);
+  });
+  // GET /plans returns a list of all plans
+  app.get("/plans", async (req, res) => {
+    await planController.handleGetPlans(req, res);
+  });
+  // POST /plan creates a new plan
+  app.post("/plan", async (req, res) => {
+    await planController.handleCreatePlan(req, res);
   });
 
   app.get("/healthz", (req, res) => res.json({ status: "ok" }));
