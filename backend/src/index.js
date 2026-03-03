@@ -17,13 +17,23 @@ async function makeApp() {
   app.use(cors());
   app.use(bodyParser.json());
 
-  // GET /excercises returns a list of all excercises
-  app.get("/excercises", async (req, res) => {
-    await exerciseController.handleGetExercises(req, res);
+  // GET /exercises returns a list of all exercises
+  app.get("/exercises", async (req, res) => {
+    console.log("GET /excercises requested");
+    try {
+      await exerciseController.handleGetExercises(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   });
+  
   // POST /exercise creates a new excercise
   app.post("/exercise", async (req, res) => {
-    await exerciseController.handleCreateExercise(req, res);
+    try {
+      await exerciseController.handleCreateExercise(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   });
 
   app.get("/healthz", (req, res) => res.json({ status: "ok" }));

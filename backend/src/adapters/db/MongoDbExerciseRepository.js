@@ -15,9 +15,7 @@ class MongoDbExerciseRepository {
       await this.client.connect();
       const db = this.client.db(this.dbName);
       this.collection = db.collection(this.collectionName);
-      console.log("MongoDB connected successfully");
     } catch (error) {
-      console.error("MongoDB connection failed:", error.message);
       throw new Error(`Failed to connect to MongoDB: ${error.message}`);
     }
   }
@@ -28,7 +26,6 @@ class MongoDbExerciseRepository {
       const exercises = await this.collection.find({}).toArray();
       return exercises;
     } catch (error) {
-      console.error("Failed to fetch exercises from MongoDB:", error.message);
       throw new Error(`Failed to fetch exercises: ${error.message}`);
     }
   }
@@ -46,7 +43,6 @@ class MongoDbExerciseRepository {
       const result = await this.collection.insertOne(obj);
       return { ...obj, _id: result.insertedId };
     } catch (error) {
-      console.error("Failed to save exercise to MongoDB:", error.message);
       throw new Error(`Failed to save exercise: ${error.message}`);
     }
   }
