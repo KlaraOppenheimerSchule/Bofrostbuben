@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 class MongoDbExerciseRepository {
-  constructor(mongoUri = process.env.MONGO_URL || "mongodb://appuser:apppass@db:27017/appdb", dbName = "appdb", collectionName = "exercises") {
+  constructor(mongoUri = process.env.MONGO_URL || "mongodb://appuser:apppass@db:27017/?authSource=admin", dbName = "appdb", collectionName = "exercises") {
     this.mongoUri = mongoUri;
     this.dbName = dbName;
     this.collectionName = collectionName;
@@ -24,6 +24,11 @@ class MongoDbExerciseRepository {
     try {
       if (!this.collection) await this.connect();
       const exercises = await this.collection.find({}).toArray();
+
+      // if the exercises collection is empty, return array with "No exercises found"
+        if (exercises.length === 0) {
+            return [{ name: "No exercises found", muscleGroup: "", description: "" }];
+        }   
       return exercises;
     } catch (error) {
       throw new Error(`Failed to fetch exercises: ${error.message}`);
