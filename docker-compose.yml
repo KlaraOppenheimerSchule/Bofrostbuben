@@ -38,7 +38,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URL=mongodb://appuser:apppass@db:27017/appdb
+      - MONGO_URL=mongodb://appuser:apppass@db:27017/?authSource=admin
     restart: unless-stopped
     depends_on:
       - db

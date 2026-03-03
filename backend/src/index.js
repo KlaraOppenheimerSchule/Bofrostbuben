@@ -4,26 +4,40 @@ const cors = require("cors");
 
 const ExerciseController = require("./adapters/http/ExerciseController");
 const ExerciseService = require("./application/ExerciseService");
-const InMemoryExerciseRepository = require("./adapters/db/InMemoryExerciseRepository");
+const MongoDbExerciseRepository = require("./adapters/db/MongoDbExerciseRepository");
 
 const PORT = process.env.PORT || 3000;
 
-const exerciseRepository = new InMemoryExerciseRepository();
+const exerciseRepository = new MongoDbExerciseRepository();
 const exerciseService = new ExerciseService(exerciseRepository);
 const exerciseController = new ExerciseController(exerciseService);
 
 async function makeApp() {
   const app = express();
-  app.use(cors());
+  app.use(cors({
+    origin: '*',
+    credentials: false,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
   app.use(bodyParser.json());
 
-  // GET /excercises returns a list of all excercises
-  app.get("/excercises", async (req, res) => {
-    await exerciseController.handleGetExercises(req, res);
+  // GET /exercises returns a list of all exercises
+  app.get("/exercises", async (req, res) => {
+    try {
+      await exerciseController.handleGetExercises(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   });
+  
   // POST /exercise creates a new excercise
   app.post("/exercise", async (req, res) => {
-    await exerciseController.handleCreateExercise(req, res);
+    try {
+      await exerciseController.handleCreateExercise(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   });
 
   app.get("/healthz", (req, res) => res.json({ status: "ok" }));
