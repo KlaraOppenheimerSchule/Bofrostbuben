@@ -38,26 +38,25 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=db
-      - DB_USER=appuser
-      - DB_PASSWORD=apppass
-      - DB_NAME=appdb
+      - MONGO_URL=mongodb://appuser:apppass@db:27017/appdb
     restart: unless-stopped
     depends_on:
       - db
 
-  ### --- Database (Postgres) ---
+  ### --- Database (MongoDB) ---
   db:
-    image: postgres:16-alpine
-    container_name: postgres_db
+    build:
+      context: .
+      dockerfile: docker/database/Dockerfile
+    container_name: mongo_db
     environment:
-      POSTGRES_USER: appuser
-      POSTGRES_PASSWORD: apppass
-      POSTGRES_DB: appdb
+      MONGO_INITDB_ROOT_USERNAME: appuser
+      MONGO_INITDB_ROOT_PASSWORD: apppass
+      MONGO_INITDB_DATABASE: appdb
     ports:
-      - "5432:5432"
+      - "27017:27017"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/mongodb/data
 
 volumes:
   db_data:
