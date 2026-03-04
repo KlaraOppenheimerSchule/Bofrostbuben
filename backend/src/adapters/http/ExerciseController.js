@@ -28,7 +28,7 @@ class ExerciseController {
     try {
       const exerciseInformation = request.body || {};
       const editedExercise = await this.exerciseService.editExercise(exerciseInformation);
-      response.status(201).json(editedExercise);
+      response.status(200).json(editedExercise);
       return;
     } catch (error) {
       response.status(error.status || 500).json({ error: error.message || "Failed to edit exercise: internal server error" });

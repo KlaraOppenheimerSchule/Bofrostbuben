@@ -26,7 +26,7 @@ class ExerciseService {
       description,
     });
 
-    return await this.exerciseRepository.editExercise(exercise)
+    return await this.exerciseRepository.edit(exercise)
   }
 
   /**
