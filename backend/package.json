@@ -4,7 +4,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -14,7 +17,8 @@
     "pg": "^8.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@vitest/coverage-v8": "^4.0.18",
+    "nodemon": "^3.1.0",
+    "vitest": "^4.0.18"
   }
 }
-
