@@ -45,11 +45,13 @@ class MongoDbPlanRepository {
     }
   }
 
-  async save({ days }) {
+  async save({ name, sessionsPerWeek, days, exercises }) {
     try {
       if (!this.collection) await this.connect();
 
       const obj = {
+        name: name || '',
+        sessionsPerWeek: Number(sessionsPerWeek) || 3,
         days: Array.isArray(days)
           ? days.map((d) => ({
               dayIndex: Number(d.dayIndex),
@@ -59,6 +61,13 @@ class MongoDbPlanRepository {
                     muscleGroup: e.muscleGroup,
                   }))
                 : [],
+            }))
+          : [],
+        exercises: Array.isArray(exercises)
+          ? exercises.map((e) => ({
+              id: e.id ?? null,
+              name: e.name,
+              muscleGroup: e.muscleGroup,
             }))
           : [],
         createdAt: new Date(),
@@ -72,11 +81,13 @@ class MongoDbPlanRepository {
     }
   }
 
-  async update(planId, { days }) {
+  async update(planId, { name, sessionsPerWeek, days, exercises }) {
     try {
       if (!this.collection) await this.connect();
       
       const obj = {
+        name: name || '',
+        sessionsPerWeek: Number(sessionsPerWeek) || 3,
         days: Array.isArray(days)
           ? days.map((d) => ({
               dayIndex: Number(d.dayIndex),
@@ -88,7 +99,13 @@ class MongoDbPlanRepository {
                 : [],
             }))
           : [],
-        createdAt: new Date(),
+        exercises: Array.isArray(exercises)
+          ? exercises.map((e) => ({
+              id: e.id ?? null,
+              name: e.name,
+              muscleGroup: e.muscleGroup,
+            }))
+          : [],
       };
 
       const result = await this.collection.updateOne(

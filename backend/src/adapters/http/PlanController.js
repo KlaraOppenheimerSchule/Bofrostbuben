@@ -11,6 +11,12 @@ class PlanController {
     async handleCreatePlan(request, response) {
       const planData = request.body || {};
 
+      if (!planData.name || typeof planData.name !== 'string' || planData.name.trim() === '') {
+        const err = new Error("Invalid plan data: 'name' is required and must be a non-empty string");
+        err.status = 400;
+        throw err;
+      }
+
       if (!planData.days || !Array.isArray(planData.days)) {
         const err = new Error("Invalid plan data: 'days' must be an array");
         err.status = 400;

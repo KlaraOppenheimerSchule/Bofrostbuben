@@ -8,9 +8,12 @@ class PlanService {
   /**
    * Create a new Plan entity and store it using the repository.
    */
-  async createPlan({ days }) {
+  async createPlan({ name, sessionsPerWeek, days, exercises }) {
     const plan = new Plan({
+      name,
+      sessionsPerWeek,
       days,
+      exercises,
     });
 
     return await this.planRepository.save(plan);
@@ -26,8 +29,8 @@ class PlanService {
   /**
    * Update an existing plan with the given ID using the provided data.
    */
-  async editPlan(planId, { days }) {
-    return await this.planRepository.update(planId, { days });
+  async editPlan(planId, { name, sessionsPerWeek, days, exercises }) {
+    return await this.planRepository.update(planId, { name, sessionsPerWeek, days, exercises });
   }
 }
 
