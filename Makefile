@@ -1,4 +1,4 @@
-.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev
+.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev test_unit
 
 ### shortcuts/aliases
 
@@ -33,3 +33,7 @@ stop-dev:
 
 format:
 	cd frontend && npm run format
+
+# Run unit tests for backend
+test_unit:
+	cd backend && npm test
