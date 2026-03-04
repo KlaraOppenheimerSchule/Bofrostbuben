@@ -43,7 +43,7 @@ class ExerciseController {
 
       await this.exerciseService.deleteExercise(id);
 
-      response.status(204).send(); 
+      response.status(204).send(); // No Content
     } catch (error) {
       response
           .status(error.status || 500)

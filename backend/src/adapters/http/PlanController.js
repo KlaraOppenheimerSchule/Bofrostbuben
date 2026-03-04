@@ -20,19 +20,6 @@ class PlanController {
       const createdPlan = await this.planService.createPlan(planData);
       response.status(201).json(createdPlan);
     }
-
-    async handleEditPlan(request, response) {
-      const planId = request.params.id;
-      const planData = request.body || {};
-
-      if (!planData.days || !Array.isArray(planData.days)) {
-        const err = new Error("Invalid plan data: 'days' must be an array");
-        err.status = 400;
-        throw err;
-      }
-
-      const updatedPlan = await this.planService.editPlan(planId, planData);
-      response.status(201).json(updatedPlan);
-    }
-}
+  }
+  
   module.exports = PlanController;
