@@ -57,19 +57,6 @@ class MongoDbExerciseRepository {
   }
 
   /**
-   * Find a single exercise by its ID
-   */
-  async findById(id) {
-    try {
-      if (!this.collection) await this.connect();
-      const exercise = await this.collection.findOne({ _id: new ObjectId(id) });
-      return exercise;
-    } catch (error) {
-      throw new Error(`Failed to find exercise: ${error.message}`);
-    }
-  }
-
-  /**
    * Delete an exercise by its ID
    */
   async delete(id) {

@@ -25,18 +25,8 @@ class ExerciseService {
     return await this.exerciseRepository.findAll();
   }
 
-  /**
-   * Delete an exercise by its ID.
-   */
+  
   async deleteExercise(id) {
-    // Optional: prüfen, ob die Übung existiert
-    const exercise = await this.exerciseRepository.findById(id);
-    if (!exercise) {
-      const error = new Error(`Exercise with id ${id} not found`);
-      error.status = 404;
-      throw error;
-    }
-
     return await this.exerciseRepository.delete(id);
   }
 }

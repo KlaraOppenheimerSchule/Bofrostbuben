@@ -20,6 +20,8 @@ const loading = ref(false)
 const error = ref<string | null>(null)
 
 const showCreateDialog = ref(false)
+const showDeleteDialog = ref(false)
+const exerciseToDelete = ref<any | null>(null)
 const formData = ref({
   name: '',
   muscleGroup: '',
@@ -72,6 +74,23 @@ const closeCreateExerciseDialog = () => {
   showCreateDialog.value = false
   resetFormData()
   clearFormError()
+}
+
+const openDeleteDialog = (exercise: any) => {
+  exerciseToDelete.value = exercise
+  showDeleteDialog.value = true
+}
+
+const closeDeleteDialog = () => {
+  showDeleteDialog.value = false
+  exerciseToDelete.value = null
+}
+
+const confirmDelete = async () => {
+  if (!exerciseToDelete.value) return
+
+  await deleteExerciseAndRemoveFromList(exerciseToDelete.value._id)
+  closeDeleteDialog()
 }
 
 // ============= API CALLS =============
@@ -136,7 +155,6 @@ const deleteExerciseAndRemoveFromList = async (exerciseId: string) => {
       exercise => exercise._id !== exerciseId
     )
 
-    console.log('Exercise deleted successfully')
   } catch (err) {
     formError.value = err instanceof Error ? err.message : 'Failed to delete exercise'
     console.error('Delete error:', err)
@@ -212,7 +230,7 @@ const text =
                         icon="mdi-delete"
                         color="red"
                         variant="text"
-                        @click="deleteExerciseAndRemoveFromList(exercise._id)"
+                        @click="openDeleteDialog(exercise)"
                       ></v-btn>
                     </v-card-title>
 
@@ -278,6 +296,46 @@ const text =
           </v-btn>
           <v-btn color="primary" @click="submitExerciseForm" :disabled="submitting" :loading="submitting">
             Create
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- Delete Exercise Dialog -->
+    <v-dialog v-model="showDeleteDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Delete Exercise</v-card-title>
+
+        <v-card-text>
+          <div v-if="formError" class="text-error mb-4">
+            {{ formError }}
+          </div>
+
+          <p>
+            Are you sure you want to delete
+            <strong>{{ exerciseToDelete?.name }}</strong>?
+          </p>
+          <p class="text-caption">
+            This action cannot be undone.
+          </p>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            @click="closeDeleteDialog"
+            :disabled="submitting"
+          >
+            Cancel
+          </v-btn>
+
+          <v-btn
+            color="red"
+            @click="confirmDelete"
+            :loading="submitting"
+            :disabled="submitting"
+          >
+            Delete
           </v-btn>
         </v-card-actions>
       </v-card>

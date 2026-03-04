@@ -45,7 +45,6 @@ async function makeApp() {
     try {
       await exerciseController.handleDeleteExercise(req, res);
     } catch (error) {
-      console.error("DELETE ERROR:", error);
       res.status(500).json({ error: error.message });
     }
   });
