@@ -1,4 +1,3 @@
-const Exercise = require('../../domain/Exercise')
 
 class InMemoryExerciseRepository {
   constructor() {

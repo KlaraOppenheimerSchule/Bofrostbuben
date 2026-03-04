@@ -1,4 +1,4 @@
-const Exercise = require('../domain/Exercise')
+const Exercise = require('../domain/Exercise.js')
 
 class ExerciseService {
   constructor(exerciseRepository) {
