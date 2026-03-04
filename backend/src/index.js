@@ -58,6 +58,15 @@ async function makeApp() {
     }
   });
 
+  // DELETE /exercise/:id deletes an exercise
+  app.delete("/exercise/:id", async (req, res) => {
+    try {
+      await exerciseController.handleDeleteExercise(req, res);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }sdad
+  });
+  
   // GET /plans returns a list of all plans
   app.get("/plans", async (req, res) => {
     await planController.handleGetPlans(req, res);
@@ -68,14 +77,12 @@ async function makeApp() {
     await planController.handleCreatePlan(req, res);
   });
 
-  // DELETE /exercise/:id deletes an exercise
-  app.delete("/exercise/:id", async (req, res) => {
-    try {
-      await exerciseController.handleDeleteExercise(req, res);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+  // PATCH /plan/:id modifies an existing plan
+  app.patch("/plan/:id", async (req, res) => {
+    await planController.handleEditPlan(req, res);
   });
+
+  
 
   return app;
 }

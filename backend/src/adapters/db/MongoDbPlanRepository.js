@@ -71,6 +71,40 @@ class MongoDbPlanRepository {
       throw new Error(`Failed to save plan: ${error.message}`);
     }
   }
+
+  async update(planId, { days }) {
+    try {
+      if (!this.collection) await this.connect();
+      
+      const obj = {
+        days: Array.isArray(days)
+          ? days.map((d) => ({
+              dayIndex: Number(d.dayIndex),
+              exercises: Array.isArray(d.exercises)
+                ? d.exercises.map((e) => ({
+                    name: e.name,
+                    muscleGroup: e.muscleGroup,
+                  }))
+                : [],
+            }))
+          : [],
+        createdAt: new Date(),
+      };
+
+      const result = await this.collection.updateOne(
+        { _id: planId },
+        { $set: obj }
+      );
+
+      if (result.matchedCount === 0) {
+        throw new Error("Plan not found");
+      }
+
+      return { ...obj, _id: planId };
+    } catch (error) {
+      throw new Error(`Failed to update plan: ${error.message}`);
+    }
+  }
 }
 
 module.exports = MongoDbPlanRepository;
