@@ -39,6 +39,21 @@ class MongoDbExerciseRepository {
     }
   }
 
+  async edit({ id, name, muscleGroup, description }) {
+    try {
+      if (!this.collection) await this.connect();
+
+      const result = await this.collection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { name, muscleGroup, description: description || "" } }
+      );
+
+      return result.modifiedCount > 0;
+    } catch (error) {
+        throw new Error(`Failed to edit exercise: ${error.message}`);
+    }
+  }
+
   async save({ name, muscleGroup, description }) {
     try {
       if (!this.collection) await this.connect();

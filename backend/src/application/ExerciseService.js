@@ -18,6 +18,17 @@ class ExerciseService {
     return await this.exerciseRepository.save(exercise);
   }
 
+  async editExercise({ id, name, muscleGroup, description }) {
+    const exercise = new Exercise({
+      id,
+      name,
+      muscleGroup,
+      description,
+    });
+
+    return await this.exerciseRepository.editExercise(exercise)
+  }
+
   /**
    * Return a list of all stored exercises.
    */
