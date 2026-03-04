@@ -118,6 +118,33 @@ const createExerciseAndAddToList = async () => {
   }
 }
 
+const deleteExerciseAndRemoveFromList = async (exerciseId: string) => {
+  submitting.value = true
+  clearFormError()
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/exercise/${exerciseId}`, {
+      method: 'DELETE'
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    // 🧹 Aus dem Frontend-Array entfernen
+    exercises.value = exercises.value.filter(
+      exercise => exercise._id !== exerciseId
+    )
+
+    console.log('Exercise deleted successfully')
+  } catch (err) {
+    formError.value = err instanceof Error ? err.message : 'Failed to delete exercise'
+    console.error('Delete error:', err)
+  } finally {
+    submitting.value = false
+  }
+}
+
 // ============= FORM SUBMISSION =============
 const submitExerciseForm = async () => {
   if (!validateExerciseForm()) return
@@ -178,7 +205,17 @@ const text =
               <v-list v-else>
                 <v-list-item v-for="exercise in exercises" :key="exercise._id" class="mb-2">
                   <v-card>
-                    <v-card-title>{{ exercise.name }}</v-card-title>
+                    <v-card-title class="d-flex justify-space-between align-center">
+                      {{ exercise.name }}
+
+                      <v-btn
+                        icon="mdi-delete"
+                        color="red"
+                        variant="text"
+                        @click="deleteExerciseAndRemoveFromList(exercise._id)"
+                      ></v-btn>
+                    </v-card-title>
+
                     <v-card-text>
                       <p><strong>Muscle Group:</strong> {{ exercise.muscleGroup }}</p>
                       <p><strong>Description:</strong> {{ exercise.description }}</p>

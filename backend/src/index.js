@@ -40,7 +40,15 @@ async function makeApp() {
     }
   });
 
-  app.get("/healthz", (req, res) => res.json({ status: "ok" }));
+  // DELETE /exercise/:id deletes an exercise
+  app.delete("/exercise/:id", async (req, res) => {
+    try {
+      await exerciseController.handleDeleteExercise(req, res);
+    } catch (error) {
+      console.error("DELETE ERROR:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
 
   return app;
 }
