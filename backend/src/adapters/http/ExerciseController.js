@@ -22,6 +22,17 @@ class ExerciseController {
     }
   }
 
+  async handleEditExercise(request, response) {
+    try {
+      const exerciseInformation = request.body || {};
+      const editedExercise = await this.exerciseService.editExercise(exerciseInformation);
+      response.status(200).json(editedExercise);
+      return;
+    } catch (error) {
+      response.status(error.status || 500).json({ error: error.message || "Failed to edit exercise: internal server error" });
+    }
+  }
+
   async handleDeleteExercise(request, response) {
     try {
       const { id } = request.params;
@@ -35,8 +46,8 @@ class ExerciseController {
       response.status(204).send(); // No Content
     } catch (error) {
       response
-        .status(error.status || 500)
-        .json({ error: error.message || "Failed to delete exercise: internal server error" });
+          .status(error.status || 500)
+          .json({ error: error.message || "Failed to delete exercise: internal server error" });
     }
   }
 }

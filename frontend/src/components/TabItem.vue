@@ -21,8 +21,16 @@ const error = ref<string | null>(null)
 
 const showCreateDialog = ref(false)
 const showDeleteDialog = ref(false)
+const showEditDialog = ref(false)
 const exerciseToDelete = ref<any | null>(null)
+const exerciseToEdit = ref<any | null>(null)
 const formData = ref({
+  name: '',
+  muscleGroup: '',
+  description: ''
+})
+const editFormData = ref({
+  id: '',
   name: '',
   muscleGroup: '',
   description: ''
@@ -73,6 +81,24 @@ const openCreateExerciseDialog = () => {
 const closeCreateExerciseDialog = () => {
   showCreateDialog.value = false
   resetFormData()
+  clearFormError()
+}
+
+const openEditDialog = (exercise: any) => {
+  exerciseToEdit.value = exercise
+  editFormData.value = {
+    id: exercise._id,
+    name: exercise.name,
+    muscleGroup: exercise.muscleGroup,
+    description: exercise.description || ''
+  }
+  showEditDialog.value = true
+  clearFormError()
+}
+
+const closeEditDialog = () => {
+  showEditDialog.value = false
+  exerciseToEdit.value = null
   clearFormError()
 }
 
@@ -163,10 +189,56 @@ const deleteExerciseAndRemoveFromList = async (exerciseId: string) => {
   }
 }
 
+const editExerciseAndUpdateList = async () => {
+  submitting.value = true
+  clearFormError()
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/exercise`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editFormData.value)
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const index = exercises.value.findIndex(e => e._id === editFormData.value.id)
+    if (index !== -1) {
+      exercises.value[index] = {
+        ...exercises.value[index],
+        name: editFormData.value.name,
+        muscleGroup: editFormData.value.muscleGroup,
+        description: editFormData.value.description
+      }
+    }
+
+    closeEditDialog()
+  } catch (err) {
+    formError.value = err instanceof Error ? err.message : 'Failed to edit exercise'
+    console.error('Edit error:', err)
+  } finally {
+    submitting.value = false
+  }
+}
+
 // ============= FORM SUBMISSION =============
 const submitExerciseForm = async () => {
   if (!validateExerciseForm()) return
   await createExerciseAndAddToList()
+}
+
+const submitEditForm = async () => {
+  if (!editFormData.value.name.trim()) {
+    formError.value = 'Exercise name is required'
+    return
+  }
+  if (!editFormData.value.muscleGroup) {
+    formError.value = 'Muscle group is required'
+    return
+  }
+  await editExerciseAndUpdateList()
 }
 
 // ============= LIFECYCLE =============
@@ -226,12 +298,21 @@ const text =
                     <v-card-title class="d-flex justify-space-between align-center">
                       {{ exercise.name }}
 
-                      <v-btn
-                        icon="mdi-delete"
-                        color="red"
-                        variant="text"
-                        @click="openDeleteDialog(exercise)"
-                      ></v-btn>
+                      <div>
+                        <v-btn
+                          icon="mdi-pencil"
+                          color="blue"
+                          variant="text"
+                          @click="openEditDialog(exercise)"
+                        ></v-btn>
+
+                        <v-btn
+                          icon="mdi-delete"
+                          color="red"
+                          variant="text"
+                          @click="openDeleteDialog(exercise)"
+                        ></v-btn>
+                      </div>
                     </v-card-title>
 
                     <v-card-text>
@@ -336,6 +417,54 @@ const text =
             :disabled="submitting"
           >
             Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Edit Exercise Dialog -->
+    <v-dialog v-model="showEditDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Edit Exercise</v-card-title>
+        <v-card-text>
+          <div v-if="formError" class="text-error mb-4">
+            {{ formError }}
+          </div>
+
+          <v-text-field
+            v-model="editFormData.name"
+            label="Exercise Name"
+            placeholder="e.g., Push-ups"
+            required
+            outlined
+            class="mb-4"
+          ></v-text-field>
+
+          <v-select
+            v-model="editFormData.muscleGroup"
+            :items="muscleGroups"
+            label="Muscle Group"
+            required
+            outlined
+            class="mb-4"
+          ></v-select>
+
+          <v-textarea
+            v-model="editFormData.description"
+            label="Description"
+            placeholder="Optional description..."
+            outlined
+            rows="3"
+          ></v-textarea>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="closeEditDialog" :disabled="submitting">
+            Cancel
+          </v-btn>
+          <v-btn color="primary" @click="submitEditForm" :disabled="submitting" :loading="submitting">
+            Save
           </v-btn>
         </v-card-actions>
       </v-card>

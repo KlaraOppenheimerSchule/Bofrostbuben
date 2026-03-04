@@ -24,11 +24,11 @@ async function makeApp() {
   const app = express();
   app.use(cors({
     origin: '*',
-    credentials: false,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      credentials: false,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
- 
+
   app.use(bodyParser.json());
 
   // GET /exercises returns a list of all exercises
@@ -39,7 +39,7 @@ async function makeApp() {
       return res.status(500).json({ error: error.message });
     }
   });
-  
+
   // POST /exercise creates a new excercise
   app.post("/exercise", async (req, res) => {
     try {
@@ -48,10 +48,21 @@ async function makeApp() {
       return res.status(500).json({ error: error.message });
     }
   });
+
+  // POST /exercise modifies an existing excercise
+  app.patch("/exercise", async (req, res) => {
+    try {
+      await exerciseController.handleEditExercise(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
+
   // GET /plans returns a list of all plans
   app.get("/plans", async (req, res) => {
     await planController.handleGetPlans(req, res);
   });
+
   // POST /plan creates a new plan
   app.post("/plan", async (req, res) => {
     await planController.handleCreatePlan(req, res);
