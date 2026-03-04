@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Calender from '../components/Calender.vue'
+import Calender from '../components/CalenderItem.vue'
 import { useRouter } from 'vue-router'
 import GreetingBar from '@/components/GreetingBar.vue'
 
