@@ -60,8 +60,31 @@ function onPrimary() {
   }
 }
 
-function savePlan() {
-  console.log('Saving plan', JSON.parse(JSON.stringify(plan)))
+const API_BASE_URL = 'http://localhost:3000'
+
+async function savePlan() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/plan`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(plan),
+    })
+
+    if (!response.ok) {
+      let msg = 'Plan konnte nicht gespeichert werden'
+      try {
+        const body = await response.json()
+        if (body?.error) msg = body.error
+      } catch (_) {}
+      throw new Error(msg)
+    }
+
+    await response.json()
+    alert('Plan erfolgreich gespeichert')
+  } catch (err) {
+    console.error(err)
+    alert(err instanceof Error ? err.message : 'Fehler beim Speichern des Plans')
+  }
 }
 </script>
 
