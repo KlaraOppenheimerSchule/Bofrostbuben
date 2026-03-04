@@ -1,4 +1,4 @@
-.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev format analyze
+.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev format analyze test_unit
 
 ### shortcuts/aliases
 
@@ -38,3 +38,9 @@ format:
 analyze:
 	cd frontend && npm install && npx eslint --fix
 	cd backend && npm install && npx eslint --fix
+
+	cd frontend && npm run format
+
+# Run unit tests for backend
+test_unit:
+	cd backend && npm test

@@ -5,19 +5,20 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "body-parser": "^2.2.2",
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "pg": "^8.19.0"
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "pg": "^8.10.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "eslint": "^9.0.0",
-    "globals": "^15.0.0",
-    "nodemon": "^3.1.14",
-    "prettier": "3.8.1"
+    "@vitest/coverage-v8": "^4.0.18",
+    "nodemon": "^3.1.0",
+    "vitest": "^4.0.18"
   }
 }

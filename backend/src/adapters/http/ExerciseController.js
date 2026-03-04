@@ -21,6 +21,24 @@ class ExerciseController {
       response.status(error.status || 500).json({ error: error.message || "Failed to create exercise: internal server error" });
     }
   }
+
+  async handleDeleteExercise(request, response) {
+    try {
+      const { id } = request.params;
+
+      if (!id) {
+        return response.status(400).json({ error: "Exercise ID is required" });
+      }
+
+      await this.exerciseService.deleteExercise(id);
+
+      response.status(204).send(); // No Content
+    } catch (error) {
+      response
+        .status(error.status || 500)
+        .json({ error: error.message || "Failed to delete exercise: internal server error" });
+    }
+  }
 }
 
 module.exports = ExerciseController
