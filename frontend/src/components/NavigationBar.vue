@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { store } from '@/stores/color_store'
 </script>
 
 <template>

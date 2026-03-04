@@ -1,8 +1,8 @@
-const Exercise = require("../domain/Exercise");
+const Exercise = require('../domain/Exercise.js')
 
 class ExerciseService {
   constructor(exerciseRepository) {
-    this.exerciseRepository = exerciseRepository;
+    this.exerciseRepository = exerciseRepository
   }
 
   /**
@@ -13,9 +13,9 @@ class ExerciseService {
       name,
       muscleGroup,
       description,
-    });
+    })
 
-    return await this.exerciseRepository.save(exercise);
+    return await this.exerciseRepository.save(exercise)
   }
 
   async editExercise({ id, name, muscleGroup, description }) {
@@ -33,13 +33,13 @@ class ExerciseService {
    * Return a list of all stored exercises.
    */
   async getAllExercises() {
-    return await this.exerciseRepository.findAll();
+    return await this.exerciseRepository.findAll()
   }
 
-  
+
   async deleteExercise(id) {
     return await this.exerciseRepository.delete(id);
   }
 }
 
-module.exports = ExerciseService;
+module.exports = ExerciseService

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import Tab from '@/components/Tab.vue'
+import Tab from '@/components/TabItem.vue'
 import GreetingBar from '@/components/GreetingBar.vue'
 
 const route = useRoute()

@@ -1,4 +1,4 @@
-.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev
+.PHONY: run-dev logs-dev stop-dev build-dev startup-dev restart-dev format analyze test_unit
 
 ### shortcuts/aliases
 
@@ -32,4 +32,15 @@ stop-dev:
 	docker compose stop frontend-dev backend db
 
 format:
+	cd frontend && npm install && npm run prettier
+	cd backend && npm install && npm run prettier
+
+analyze:
+	cd frontend && npm install && npx eslint --fix
+	cd backend && npm install && npx eslint --fix
+
 	cd frontend && npm run format
+
+# Run unit tests for backend
+test_unit:
+	cd backend && npm test
