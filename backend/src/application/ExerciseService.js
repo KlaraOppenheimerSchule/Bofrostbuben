@@ -24,6 +24,11 @@ class ExerciseService {
   async getAllExercises() {
     return await this.exerciseRepository.findAll();
   }
+
+  
+  async deleteExercise(id) {
+    return await this.exerciseRepository.delete(id);
+  }
 }
 
 module.exports = ExerciseService;

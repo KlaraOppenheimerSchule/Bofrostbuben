@@ -57,7 +57,14 @@ async function makeApp() {
     await planController.handleCreatePlan(req, res);
   });
 
-  app.get("/healthz", (req, res) => res.json({ status: "ok" }));
+  // DELETE /exercise/:id deletes an exercise
+  app.delete("/exercise/:id", async (req, res) => {
+    try {
+      await exerciseController.handleDeleteExercise(req, res);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
   return app;
 }
