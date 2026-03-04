@@ -22,6 +22,13 @@ class PlanService {
   async getAllPlans() {
     return await this.planRepository.findAll();
   }
+
+  /**
+   * Update an existing plan with the given ID using the provided data.
+   */
+  async editPlan(planId, { days }) {
+    return await this.planRepository.update(planId, { days });
+  }
 }
 
 module.exports = PlanService;
