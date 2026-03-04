@@ -1,57 +1,88 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const ExerciseController = require('./adapters/http/ExerciseController')
-const ExerciseService = require('./application/ExerciseService')
-const InMemoryExerciseRepository = require('./adapters/db/InMemoryExerciseRepository')
+const ExerciseController = require("./adapters/http/ExerciseController");
+const ExerciseService = require("./application/ExerciseService");
+const MongoDbExerciseRepository = require("./adapters/db/MongoDbExerciseRepository");
 
-const PORT = process.env.PORT || 3000
+const PlanController = require("./adapters/http/PlanController");
+const PlanService = require("./application/PlanService");
+const MongoDbPlanRepository = require("./adapters/db/MongoDbPlanRepository");
 
-const exerciseRepository = new InMemoryExerciseRepository()
-const exerciseService = new ExerciseService(exerciseRepository)
-const exerciseController = new ExerciseController(exerciseService)
+const PORT = process.env.PORT || 3000;
+
+const exerciseRepository = new MongoDbExerciseRepository();
+const exerciseService = new ExerciseService(exerciseRepository);
+const exerciseController = new ExerciseController(exerciseService);
+
+const planRepository = new MongoDbPlanRepository();
+const planService = new PlanService(planRepository);
+const planController = new PlanController(planService);
 
 async function makeApp() {
-  const app = express()
-  app.use(cors())
-  app.use(bodyParser.json())
+  const app = express();
+  app.use(cors({
+    origin: '*',
+    credentials: false,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+ 
+  app.use(bodyParser.json());
 
-  // GET /excercises returns a list of all excercises
-  app.get('/excercises', async (req, res) => {
-    await exerciseController.handleGetExercises(req, res)
-  })
+  // GET /exercises returns a list of all exercises
+  app.get("/exercises", async (req, res) => {
+    try {
+      await exerciseController.handleGetExercises(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
+  
   // POST /exercise creates a new excercise
-  app.post('/exercise', async (req, res) => {
-    await exerciseController.handleCreateExercise(req, res)
-  })
+  app.post("/exercise", async (req, res) => {
+    try {
+      await exerciseController.handleCreateExercise(req, res);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
+  // GET /plans returns a list of all plans
+  app.get("/plans", async (req, res) => {
+    await planController.handleGetPlans(req, res);
+  });
+  // POST /plan creates a new plan
+  app.post("/plan", async (req, res) => {
+    await planController.handleCreatePlan(req, res);
+  });
 
-  app.get('/healthz', (req, res) => res.json({ status: 'ok' }))
+  app.get("/healthz", (req, res) => res.json({ status: "ok" }));
 
-  return app
+  return app;
 }
 
 // run as a script
 if (require.main === module) {
   makeApp()
-    .then((app) => {
-      const server = app.listen(PORT, '0.0.0.0', () => {
-        console.log(`Backend listening on http://0.0.0.0:${PORT}`)
-        console.log(`Container exposed port: ${PORT}`)
-      })
+    .then(app => {
+      const server = app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Backend listening on http://0.0.0.0:${PORT}`);
+        console.log(`Container exposed port: ${PORT}`);
+      });
 
       // handle graceful shutdown
       const shutdown = () => {
-        console.log('Shutting down server...')
-        server.close(() => process.exit(0))
-      }
-      process.on('SIGINT', shutdown)
-      process.on('SIGTERM', shutdown)
+        console.log("Shutting down server...");
+        server.close(() => process.exit(0));
+      };
+      process.on("SIGINT", shutdown);
+      process.on("SIGTERM", shutdown);
     })
-    .catch((err) => {
-      console.error('Failed to start app:', err)
-      process.exit(1)
-    })
+    .catch(err => {
+      console.error("Failed to start app:", err);
+      process.exit(1);
+    });
 }
 
-module.exports = { makeApp }
+module.exports = { makeApp };
