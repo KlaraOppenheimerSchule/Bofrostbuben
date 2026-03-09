@@ -29,6 +29,13 @@ class PlanService {
   async editPlan(planId, { days }) {
     return await this.planRepository.update(planId, { days });
   }
+
+  /**
+   * Delete a plan by its ID.
+   */
+  async deletePlan(planId) {
+    return await this.planRepository.delete(planId);
+  }
 }
 
 module.exports = PlanService;
