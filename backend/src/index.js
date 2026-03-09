@@ -64,7 +64,16 @@ async function makeApp() {
       await exerciseController.handleDeleteExercise(req, res);
     } catch (error) {
       res.status(500).json({ error: error.message });
-    }sdad
+    }
+  });
+
+  // DELETE /plan/:id deletes a plan
+  app.delete("/plan/:id", async (req, res) => {
+    try {
+      await planController.handleDeletePlan(req, res);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   });
   
   // GET /plans returns a list of all plans

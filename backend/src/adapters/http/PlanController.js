@@ -34,5 +34,11 @@ class PlanController {
       const updatedPlan = await this.planService.editPlan(planId, planData);
       response.status(201).json(updatedPlan);
     }
+
+    async handleDeletePlan(request, response) {
+        const planId = request.params.id;
+        await this.planService.deletePlan(planId);
+        response.status(204).send();
+    }
 }
   module.exports = PlanController;

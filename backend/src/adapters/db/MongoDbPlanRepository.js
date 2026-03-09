@@ -105,6 +105,21 @@ class MongoDbPlanRepository {
       throw new Error(`Failed to update plan: ${error.message}`);
     }
   }
+
+  async delete(planId) {
+    try {
+      if (!this.collection) await this.connect();
+
+      const { ObjectId } = require("mongodb");
+      const result = await this.collection.deleteOne({ _id: new ObjectId(planId) });
+
+      if (result.deletedCount === 0) {
+        throw new Error("Plan not found");
+      }
+    } catch (error) {
+      throw new Error(`Failed to delete plan: ${error.message}`);
+    }
+  }
 }
 
 module.exports = MongoDbPlanRepository;
