@@ -10,6 +10,10 @@ const PlanController = require("./adapters/http/PlanController");
 const PlanService = require("./application/PlanService");
 const MongoDbPlanRepository = require("./adapters/db/MongoDbPlanRepository");
 
+const WorkoutController = require("./adapters/http/WorkoutController");
+const WorkoutService = require("./application/WorkoutService");
+const MongoDbWorkoutRepository = require("./adapters/db/MongoDBWorkoutRepository");
+
 const PORT = process.env.PORT || 3000;
 
 const exerciseRepository = new MongoDbExerciseRepository();
@@ -19,6 +23,10 @@ const exerciseController = new ExerciseController(exerciseService);
 const planRepository = new MongoDbPlanRepository();
 const planService = new PlanService(planRepository);
 const planController = new PlanController(planService);
+
+const workoutRepository = new MongoDbWorkoutRepository();
+const workoutService = new WorkoutService(workoutRepository);
+const workoutController = new WorkoutController(workoutService);
 
 async function makeApp() {
   const app = express();
@@ -49,7 +57,7 @@ async function makeApp() {
     }
   });
 
-  // POST /exercise modifies an existing excercise
+  // Patch /exercise modifies an existing excercise
   app.patch("/exercise", async (req, res) => {
     try {
       await exerciseController.handleEditExercise(req, res);
@@ -91,7 +99,15 @@ async function makeApp() {
     await planController.handleEditPlan(req, res);
   });
 
-  
+  // POST /workout creates a new workout
+  app.post("/workout", async (req, res) => {
+    await workoutController.handleCreateWorkout(req, res);
+  });
+
+  // GET /workouts returns a list of all workouts
+  app.get("/workouts", async (req, res) => {
+    await workoutController.handleGetWorkouts(req, res);
+  });
 
   return app;
 }
