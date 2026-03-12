@@ -1,79 +1,79 @@
 // ============================================================
-// MongoDB Seed Script – wird beim ersten Start automatisch
-// von docker-entrypoint-initdb.d/ ausgeführt.
+// MongoDB Seed Script – automatically executed on first start
+// by docker-entrypoint-initdb.d/
 // ============================================================
 
 db = db.getSiblingDB("appdb");
 
-// ── Übungen (exercises) ─────────────────────────────────────
+// ── Exercises ───────────────────────────────────────────────
 db.exercises.drop();
 
 db.exercises.insertMany([
   {
-    name: "Kniebeuge",
-    muscleGroup: "Beine",
-    description: "Klassische Kniebeuge mit Körpergewicht oder Langhantel.",
+    name: "Squat",
+    muscleGroup: "Legs",
+    description: "Classic squat with bodyweight or barbell.",
     createdAt: new Date(),
   },
   {
-    name: "Kreuzheben",
-    muscleGroup: "Rücken",
-    description: "Grundübung für den hinteren Oberschenkel und den Rücken.",
+    name: "Deadlift",
+    muscleGroup: "Back",
+    description: "Fundamental exercise for the hamstrings and back.",
     createdAt: new Date(),
   },
   {
-    name: "Bankdrücken",
-    muscleGroup: "Brust",
-    description: "Liegestütze an der Langhantelbank für die Brustmuskulatur.",
+    name: "Bench Press",
+    muscleGroup: "Chest",
+    description: "Barbell press on a bench for the chest muscles.",
     createdAt: new Date(),
   },
   {
-    name: "Klimmzüge",
-    muscleGroup: "Rücken",
-    description: "Zug an der Stange für breiten Rücken und Bizeps.",
+    name: "Pull-Ups",
+    muscleGroup: "Back",
+    description: "Bar pull for a wide back and biceps.",
     createdAt: new Date(),
   },
   {
-    name: "Schulterdrücken",
-    muscleGroup: "Schultern",
-    description: "Überkopfdrücken mit Kurz- oder Langhantel.",
+    name: "Shoulder Press",
+    muscleGroup: "Shoulders",
+    description: "Overhead press with dumbbells or barbell.",
     createdAt: new Date(),
   },
   {
-    name: "Bizeps Curl",
-    muscleGroup: "Arme",
-    description: "Isolationsübung für den Bizeps mit Kurzhanteln.",
+    name: "Bicep Curl",
+    muscleGroup: "Arms",
+    description: "Isolation exercise for the biceps with dumbbells.",
     createdAt: new Date(),
   },
   {
-    name: "Trizeps Dips",
-    muscleGroup: "Arme",
-    description: "Körpergewichtsübung für den Trizeps an Parallelbarren.",
+    name: "Tricep Dips",
+    muscleGroup: "Arms",
+    description: "Bodyweight exercise for the triceps on parallel bars.",
     createdAt: new Date(),
   },
   {
     name: "Plank",
     muscleGroup: "Core",
-    description: "Statische Übung zur Kräftigung des Rumpfes.",
+    description: "Static exercise for strengthening the core.",
     createdAt: new Date(),
   },
   {
-    name: "Ausfallschritte",
-    muscleGroup: "Beine",
-    description: "Einbeinige Kniebeuge vorwärts oder rückwärts.",
+    name: "Lunges",
+    muscleGroup: "Legs",
+    description: "Single-leg squat stepping forward or backward.",
     createdAt: new Date(),
   },
   {
-    name: "Rudern mit Langhantel",
-    muscleGroup: "Rücken",
-    description: "Vorgebeugtes Rudern für Lats und mittleren Rücken.",
+    name: "Barbell Row",
+    muscleGroup: "Back",
+    description: "Bent-over row for the lats and mid-back.",
     createdAt: new Date(),
   },
 ]);
 
-print("✅  exercises: " + db.exercises.countDocuments() + " Dokumente eingefügt");
+print("✅  exercises: " + db.exercises.countDocuments() + " documents inserted");
 
-// ── Trainingspläne (plans) ───────────────────────────────────
+// ── Training Plans ───────────────────────────────────────────
 db.plans.drop();
 
 db.plans.insertMany([
@@ -84,26 +84,26 @@ db.plans.insertMany([
       {
         dayIndex: 0,
         exercises: [
-          { name: "Bankdrücken",       muscleGroup: "Brust" },
-          { name: "Schulterdrücken",   muscleGroup: "Schultern" },
-          { name: "Trizeps Dips",      muscleGroup: "Arme" },
+          { name: "Bench Press",     muscleGroup: "Chest" },
+          { name: "Shoulder Press",  muscleGroup: "Shoulders" },
+          { name: "Tricep Dips",     muscleGroup: "Arms" },
         ],
       },
       {
         dayIndex: 2,
         exercises: [
-          { name: "Klimmzüge",             muscleGroup: "Rücken" },
-          { name: "Rudern mit Langhantel", muscleGroup: "Rücken" },
-          { name: "Bizeps Curl",           muscleGroup: "Arme" },
+          { name: "Pull-Ups",    muscleGroup: "Back" },
+          { name: "Barbell Row", muscleGroup: "Back" },
+          { name: "Bicep Curl",  muscleGroup: "Arms" },
         ],
       },
       {
         dayIndex: 4,
         exercises: [
-          { name: "Kniebeuge",      muscleGroup: "Beine" },
-          { name: "Kreuzheben",     muscleGroup: "Rücken" },
-          { name: "Ausfallschritte",muscleGroup: "Beine" },
-          { name: "Plank",          muscleGroup: "Core" },
+          { name: "Squat",   muscleGroup: "Legs" },
+          { name: "Deadlift",muscleGroup: "Back" },
+          { name: "Lunges",  muscleGroup: "Legs" },
+          { name: "Plank",   muscleGroup: "Core" },
         ],
       },
     ],
@@ -111,25 +111,25 @@ db.plans.insertMany([
     createdAt: new Date(),
   },
   {
-    name: "Ganzkörper – 2x pro Woche",
+    name: "Full Body – 2x per Week",
     sessionsPerWeek: 2,
     days: [
       {
         dayIndex: 1,
         exercises: [
-          { name: "Kniebeuge",    muscleGroup: "Beine" },
-          { name: "Bankdrücken",  muscleGroup: "Brust" },
-          { name: "Klimmzüge",    muscleGroup: "Rücken" },
-          { name: "Plank",        muscleGroup: "Core" },
+          { name: "Squat",      muscleGroup: "Legs" },
+          { name: "Bench Press",muscleGroup: "Chest" },
+          { name: "Pull-Ups",   muscleGroup: "Back" },
+          { name: "Plank",      muscleGroup: "Core" },
         ],
       },
       {
         dayIndex: 4,
         exercises: [
-          { name: "Kreuzheben",         muscleGroup: "Rücken" },
-          { name: "Schulterdrücken",    muscleGroup: "Schultern" },
-          { name: "Ausfallschritte",    muscleGroup: "Beine" },
-          { name: "Bizeps Curl",        muscleGroup: "Arme" },
+          { name: "Deadlift",      muscleGroup: "Back" },
+          { name: "Shoulder Press",muscleGroup: "Shoulders" },
+          { name: "Lunges",        muscleGroup: "Legs" },
+          { name: "Bicep Curl",    muscleGroup: "Arms" },
         ],
       },
     ],
@@ -138,5 +138,4 @@ db.plans.insertMany([
   },
 ]);
 
-print("✅  plans: " + db.plans.countDocuments() + " Dokumente eingefügt");
-
+print("✅  plans: " + db.plans.countDocuments() + " documents inserted");

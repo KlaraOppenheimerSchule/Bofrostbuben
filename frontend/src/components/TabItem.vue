@@ -8,7 +8,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 // ============= STATE =============
-const items = ['Übungsübersicht', 'Übungshistorie']
+const items = ['Exercise Overview', 'Exercise History']
 
 const tab = computed({
   get: () => props.modelValue,
@@ -35,19 +35,7 @@ const editFormData = ref({
   muscleGroup: '',
   description: ''
 })
-
-// Static options for create/edit forms — German labels, English values sent to backend
-const muscleGroupOptions = [
-  { title: 'Brust',     value: 'chest' },
-  { title: 'Rücken',    value: 'back' },
-  { title: 'Beine',     value: 'legs' },
-  { title: 'Schultern', value: 'shoulders' },
-  { title: 'Bizeps',    value: 'biceps' },
-  { title: 'Trizeps',   value: 'triceps' },
-  { title: 'Bauch',     value: 'core' },
-  { title: 'Cardio',    value: 'cardio' },
-]
-
+const muscleGroups = ['chest', 'back', 'legs', 'shoulders', 'biceps', 'triceps', 'core', 'cardio']
 const submitting = ref(false)
 const formError = ref<string | null>(null)
 
@@ -55,7 +43,6 @@ const API_BASE_URL = 'http://localhost:3000'
 
 const search = ref('')
 const selectedMuscleGroup = ref<string | null>(null)
-// Dynamic filter options — raw strings from backend, guaranteed to match e.muscleGroup exactly
 const muscleGroupFilterOptions = ref<string[]>([])
 
 // ============= FILTERED EXERCISES =============
@@ -68,7 +55,7 @@ const filteredExercises = computed(() => {
 })
 
 // ============= HELPERS =============
-const isExerciseOverviewTabActive = () => tab.value === 'Übungsübersicht'
+const isExerciseOverviewTabActive = () => tab.value === 'Exercise Overview'
 
 const clearFormError = () => {
   formError.value = null
@@ -157,7 +144,6 @@ const fetchExercisesFromBackend = async () => {
     }
     exercises.value = await response.json()
     console.log('Exercises fetched:', exercises.value)
-    // Derive filter options directly from loaded data — exact same strings as e.muscleGroup
     muscleGroupFilterOptions.value = [...new Set(
       exercises.value.map((e) => e.muscleGroup).filter((g): g is string => !!g)
     )]
@@ -301,7 +287,7 @@ const text =
     </v-tabs>
 
     <v-tabs-window v-model="tab">
-      <v-tabs-window-item value="Übungsübersicht">
+      <v-tabs-window-item value="Exercise Overview">
         <v-card color="basil" flat>
           <v-card-text>
             <div v-if="isExerciseOverviewTabActive()">
@@ -379,7 +365,7 @@ const text =
         </v-card>
       </v-tabs-window-item>
 
-      <v-tabs-window-item value="Übungshistorie">
+      <v-tabs-window-item value="Exercise History">
         <v-card color="basil" flat>
           <v-card-text>{{ text }}</v-card-text>
         </v-card>
@@ -406,9 +392,7 @@ const text =
 
           <v-select
             v-model="formData.muscleGroup"
-            :items="muscleGroupOptions"
-            item-title="title"
-            item-value="value"
+            :items="muscleGroups"
             label="Muscle Group"
             required
             outlined
@@ -497,9 +481,7 @@ const text =
 
           <v-select
             v-model="editFormData.muscleGroup"
-            :items="muscleGroupOptions"
-            item-title="title"
-            item-value="value"
+            :items="muscleGroups"
             label="Muscle Group"
             required
             outlined
