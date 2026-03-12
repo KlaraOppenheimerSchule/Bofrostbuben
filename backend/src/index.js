@@ -109,6 +109,11 @@ async function makeApp() {
     await workoutController.handleGetWorkouts(req, res);
   });
 
+  // PATCH /workout modifies an existing workout
+  app.patch("/workout", async (req, res) => {
+    await workoutController.handleEditWorkout(req, res);
+  });
+  
   return app;
 }
 
