@@ -109,6 +109,15 @@ async function makeApp() {
     await workoutController.handleGetWorkouts(req, res);
   });
 
+  // DELETE /workout/:id deletes a workout
+  app.delete("/workout/:id", async (req, res) => {
+    try {
+      await workoutController.handleDeleteWorkout(req, res);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   return app;
 }
 
