@@ -90,7 +90,7 @@ db.plans.insertMany([
         ],
       },
       {
-        dayIndex: 2,
+        dayIndex: 1,
         exercises: [
           { name: "Klimmzüge",             muscleGroup: "Rücken" },
           { name: "Rudern mit Langhantel", muscleGroup: "Rücken" },
@@ -98,7 +98,7 @@ db.plans.insertMany([
         ],
       },
       {
-        dayIndex: 4,
+        dayIndex: 2,
         exercises: [
           { name: "Kniebeuge",      muscleGroup: "Beine" },
           { name: "Kreuzheben",     muscleGroup: "Rücken" },
@@ -107,7 +107,6 @@ db.plans.insertMany([
         ],
       },
     ],
-    exercises: [],
     createdAt: new Date(),
   },
   {
@@ -115,7 +114,7 @@ db.plans.insertMany([
     sessionsPerWeek: 2,
     days: [
       {
-        dayIndex: 1,
+        dayIndex: 0,
         exercises: [
           { name: "Kniebeuge",    muscleGroup: "Beine" },
           { name: "Bankdrücken",  muscleGroup: "Brust" },
@@ -124,7 +123,7 @@ db.plans.insertMany([
         ],
       },
       {
-        dayIndex: 4,
+        dayIndex: 1,
         exercises: [
           { name: "Kreuzheben",         muscleGroup: "Rücken" },
           { name: "Schulterdrücken",    muscleGroup: "Schultern" },
@@ -133,7 +132,6 @@ db.plans.insertMany([
         ],
       },
     ],
-    exercises: [],
     createdAt: new Date(),
   },
 ]);
