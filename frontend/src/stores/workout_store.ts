@@ -66,15 +66,15 @@ export const useWorkoutStore = defineStore('workout', () => {
   function selectDay(dayIndex: number): void {
     if (!selectedPlan.value) return
     selectedDayIndex.value = dayIndex
-    const day = selectedPlan.value.days.find(d => d.dayIndex === dayIndex)
+    const day = selectedPlan.value.days.find((d) => d.dayIndex === dayIndex)
     if (day) {
       currentWorkout.value = {
         planId: selectedPlan.value.id,
         dayIndex: day.dayIndex,
-        exercises: day.exercises.map(exercise => ({
+        exercises: day.exercises.map((exercise) => ({
           ...exercise,
-          sets: []
-        }))
+          sets: [],
+        })),
       }
     }
   }
@@ -83,7 +83,7 @@ export const useWorkoutStore = defineStore('workout', () => {
     if (currentWorkout.value && currentWorkout.value.exercises[exerciseIndex]) {
       currentWorkout.value.exercises[exerciseIndex].sets.push({
         reps: null,
-        weight: null
+        weight: null,
       })
     }
   }
@@ -94,15 +94,13 @@ export const useWorkoutStore = defineStore('workout', () => {
     }
   }
 
-  function updateSet(
-    exerciseIndex: number,
-    setIndex: number,
-    field: string,
-    value: unknown): void {
+  function updateSet(exerciseIndex: number, setIndex: number, field: string, value: unknown): void {
     if (currentWorkout.value && currentWorkout.value.exercises[exerciseIndex]) {
       const set = currentWorkout.value.exercises[exerciseIndex].sets[setIndex]
       if (set) {
-        set[field as keyof Set] = (field === 'reps' || field === 'weight' ? Number(value) : value) as number | null
+        set[field as keyof Set] = (
+          field === 'reps' || field === 'weight' ? Number(value) : value
+        ) as number | null
       }
     }
   }
@@ -115,9 +113,9 @@ export const useWorkoutStore = defineStore('workout', () => {
       const response = await fetch(`${API_URL}/workout`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(currentWorkout.value)
+        body: JSON.stringify(currentWorkout.value),
       })
       if (!response.ok) throw new Error('Failed to save workout')
       const saved = await response.json()
@@ -151,6 +149,6 @@ export const useWorkoutStore = defineStore('workout', () => {
     removeSet,
     updateSet,
     saveWorkout,
-    resetWorkout
+    resetWorkout,
   }
 })
