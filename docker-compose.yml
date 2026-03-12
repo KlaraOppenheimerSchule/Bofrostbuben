@@ -25,6 +25,8 @@ services:
     command: sh -c "npm run dev -- --host 0.0.0.0"
     ports:
       - "5173:5173"
+    depends_on:
+      - backend
 
   ### --- Backend API ---
   backend:
