@@ -8,7 +8,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 // ============= STATE =============
-const items = ['Übungsübersicht', 'Übungshistorie']
+const items = ['Exercise Overview', 'Exercise History']
 
 const tab = computed({
   get: () => props.modelValue,
@@ -35,14 +35,27 @@ const editFormData = ref({
   muscleGroup: '',
   description: ''
 })
-const muscleGroups = ['chest', 'back', 'legs', 'shoulders', 'biceps','triceps', 'core', 'cardio']
+const muscleGroups = ['chest', 'back', 'legs', 'shoulders', 'biceps', 'triceps', 'core', 'cardio']
 const submitting = ref(false)
 const formError = ref<string | null>(null)
 
 const API_BASE_URL = 'http://localhost:3000'
 
+const search = ref('')
+const selectedMuscleGroup = ref<string | null>(null)
+const muscleGroupFilterOptions = ref<string[]>([])
+
+// ============= FILTERED EXERCISES =============
+const filteredExercises = computed(() => {
+  return exercises.value.filter((e) => {
+    const matchesSearch = (e.name || '').toLowerCase().includes(search.value.toLowerCase())
+    const matchesMuscleGroup = !selectedMuscleGroup.value || e.muscleGroup === selectedMuscleGroup.value
+    return matchesSearch && matchesMuscleGroup
+  })
+})
+
 // ============= HELPERS =============
-const isExerciseOverviewTabActive = () => tab.value === 'Übungsübersicht'
+const isExerciseOverviewTabActive = () => tab.value === 'Exercise Overview'
 
 const clearFormError = () => {
   formError.value = null
@@ -131,6 +144,9 @@ const fetchExercisesFromBackend = async () => {
     }
     exercises.value = await response.json()
     console.log('Exercises fetched:', exercises.value)
+    muscleGroupFilterOptions.value = [...new Set(
+      exercises.value.map((e) => e.muscleGroup).filter((g): g is string => !!g)
+    )]
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to fetch exercises'
     console.error('Fetch error:', err)
@@ -176,7 +192,6 @@ const deleteExerciseAndRemoveFromList = async (exerciseId: string) => {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
 
-    // 🧹 Aus dem Frontend-Array entfernen
     exercises.value = exercises.value.filter(
       exercise => exercise._id !== exerciseId
     )
@@ -272,13 +287,30 @@ const text =
     </v-tabs>
 
     <v-tabs-window v-model="tab">
-      <v-tabs-window-item value="Übungsübersicht">
+      <v-tabs-window-item value="Exercise Overview">
         <v-card color="basil" flat>
           <v-card-text>
             <div v-if="isExerciseOverviewTabActive()">
               <v-btn color="primary" @click="openCreateExerciseDialog" class="mb-4">
                 Create New Exercise
               </v-btn>
+
+              <v-row class="mb-4">
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="search" label="Search exercise" clearable density="compact" />
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-select
+                    v-model="selectedMuscleGroup"
+                    :items="muscleGroupFilterOptions"
+                    label="Filter by muscle group"
+                    clearable
+                    density="compact"
+                    :loading="loading"
+                    no-data-text="No muscle groups available"
+                  />
+                </v-col>
+              </v-row>
 
               <div v-if="loading" class="text-center">
                 <v-progress-circular indeterminate></v-progress-circular>
@@ -292,11 +324,18 @@ const text =
                 No exercises available. Create one to get started!
               </div>
 
+              <div v-else-if="filteredExercises.length === 0" class="text-center">
+                No exercises match your current filters.
+              </div>
+
               <v-list v-else>
-                <v-list-item v-for="exercise in exercises" :key="exercise._id" class="mb-2">
+                <v-list-item v-for="exercise in filteredExercises" :key="exercise._id" class="mb-2">
                   <v-card>
                     <v-card-title class="d-flex justify-space-between align-center">
-                      {{ exercise.name }}
+                      <span class="d-flex align-center">
+                        {{ exercise.name }}
+                        <v-chip size="small" variant="outlined" class="ml-2">{{ exercise.muscleGroup || '–' }}</v-chip>
+                      </span>
 
                       <div>
                         <v-btn
@@ -316,8 +355,7 @@ const text =
                     </v-card-title>
 
                     <v-card-text>
-                      <p><strong>Muscle Group:</strong> {{ exercise.muscleGroup }}</p>
-                      <p><strong>Description:</strong> {{ exercise.description }}</p>
+                      {{ exercise.description || '–' }}
                     </v-card-text>
                   </v-card>
                 </v-list-item>
@@ -327,7 +365,7 @@ const text =
         </v-card>
       </v-tabs-window-item>
 
-      <v-tabs-window-item value="Übungshistorie">
+      <v-tabs-window-item value="Exercise History">
         <v-card color="basil" flat>
           <v-card-text>{{ text }}</v-card-text>
         </v-card>
@@ -381,6 +419,7 @@ const text =
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <!-- Delete Exercise Dialog -->
     <v-dialog v-model="showDeleteDialog" max-width="500px">
       <v-card>
