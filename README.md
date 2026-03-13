@@ -16,6 +16,16 @@ to simply run or stop all containers use:
 to restart the containers in one command:
 - make restart-dev
 
+### Accessing the application
+
+You can view the frontend under http://localhost:5173
+The backend is reacheable under http://localhost:3000
+
+### DB access
+
+To access the database, install MongoDB Compass (or similar application) and connect under
+mongodb://appuser:apppass@localhost:27017/
+
 
 
 ### Code Formating
